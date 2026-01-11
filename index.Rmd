@@ -1,0 +1,19 @@
+---
+title: "Marketing Analytics Lecture Notes"
+---
+
+# Marketing Analytics Lecture Notes {-}
+
+These notes accompany **MKT 4320 Marketing Analytics** and are designed to support
+in-class lectures, demonstrations, and discussion using **R** and **RStudio**.
+
+The focus of these notes is on understanding *why* we use particular analytical
+tools and *how* to interpret results, rather than on memorizing syntax.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+```

@@ -1,0 +1,28 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  line-height: 1;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  margin-top: 12px !important;
+  margin-bottom: 12px !important;
+}
+pre code {
+  line-height: 1;
+}
+
+pre.r {
+  line-height: 1;
+}
+<style>
+li p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+</style>

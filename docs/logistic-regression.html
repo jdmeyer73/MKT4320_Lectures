@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 3 Logistic Regression | Marketing Analytics Lecture Notes</title>
+  <meta name="description" content="Topic 3 Logistic Regression | Marketing Analytics Lecture Notes" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 3 Logistic Regression | Marketing Analytics Lecture Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 3 Logistic Regression | Marketing Analytics Lecture Notes" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="linear-regression.html"/>
+<link rel="next" href="targeting-and-retaining-customers.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/codefolding-lua-1.1/codefolding-lua.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Marketing Analytics Lecture Notes</a></li>
+<li class="chapter" data-level="1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html"><i class="fa fa-check"></i><b>1</b> Examining and Summarizing Data</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#r-packages-and-datasets-for-topic-1"><i class="fa fa-check"></i><b>1.1</b> R Packages and Datasets for Topic 1</a></li>
+<li class="chapter" data-level="1.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#motivation"><i class="fa fa-check"></i><b>1.2</b> Motivation</a></li>
+<li class="chapter" data-level="1.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#overview"><i class="fa fa-check"></i><b>1.3</b> Overview</a></li>
+<li class="chapter" data-level="1.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#univariate---graphs-and-tables"><i class="fa fa-check"></i><b>1.4</b> Univariate - Graphs and Tables</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#bar-chart"><i class="fa fa-check"></i><b>1.4.1</b> Bar Chart</a></li>
+<li class="chapter" data-level="1.4.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#histogram"><i class="fa fa-check"></i><b>1.4.2</b> Histogram</a></li>
+<li class="chapter" data-level="1.4.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#box-plot"><i class="fa fa-check"></i><b>1.4.3</b> Box Plot</a></li>
+<li class="chapter" data-level="1.4.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#frequency-table"><i class="fa fa-check"></i><b>1.4.4</b> Frequency Table</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#univariate---statistics"><i class="fa fa-check"></i><b>1.5</b> Univariate - Statistics</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#measures-of-centrality"><i class="fa fa-check"></i><b>1.5.1</b> Measures of Centrality</a></li>
+<li class="chapter" data-level="1.5.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#measures-of-dispersion"><i class="fa fa-check"></i><b>1.5.2</b> Measures of Dispersion</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#bivariate---graphs-and-tables"><i class="fa fa-check"></i><b>1.6</b> Bivariate - Graphs and Tables</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#scatterplots"><i class="fa fa-check"></i><b>1.6.1</b> Scatterplots</a></li>
+<li class="chapter" data-level="1.6.2" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#crosstabs"><i class="fa fa-check"></i><b>1.6.2</b> Crosstabs</a></li>
+<li class="chapter" data-level="1.6.3" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#box-plot-1"><i class="fa fa-check"></i><b>1.6.3</b> Box Plot</a></li>
+<li class="chapter" data-level="1.6.4" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#bar-chart-1"><i class="fa fa-check"></i><b>1.6.4</b> Bar Chart</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#statistics"><i class="fa fa-check"></i><b>1.7</b> Statistics</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#correlation"><i class="fa fa-check"></i><b>1.7.1</b> Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="examining-and-summarizing-data.html"><a href="examining-and-summarizing-data.html#suggested-readings"><i class="fa fa-check"></i><b>1.8</b> Suggested Readings</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>2</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="linear-regression.html"><a href="linear-regression.html#r-packages-and-datasets-for-topic-2"><i class="fa fa-check"></i><b>2.1</b> R Packages and Datasets for Topic 2</a></li>
+<li class="chapter" data-level="2.2" data-path="linear-regression.html"><a href="linear-regression.html#motivation-1"><i class="fa fa-check"></i><b>2.2</b> Motivation</a></li>
+<li class="chapter" data-level="2.3" data-path="linear-regression.html"><a href="linear-regression.html#understanding-regression-analysis"><i class="fa fa-check"></i><b>2.3</b> Understanding Regression Analysis</a></li>
+<li class="chapter" data-level="2.4" data-path="linear-regression.html"><a href="linear-regression.html#conducting-linear-regression"><i class="fa fa-check"></i><b>2.4</b> Conducting Linear Regression</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="linear-regression.html"><a href="linear-regression.html#check-data-requirements"><i class="fa fa-check"></i><b>2.4.1</b> Check Data Requirements</a></li>
+<li class="chapter" data-level="2.4.2" data-path="linear-regression.html"><a href="linear-regression.html#model-specification"><i class="fa fa-check"></i><b>2.4.2</b> Model Specification</a></li>
+<li class="chapter" data-level="2.4.3" data-path="linear-regression.html"><a href="linear-regression.html#model-estimation"><i class="fa fa-check"></i><b>2.4.3</b> Model Estimation</a></li>
+<li class="chapter" data-level="2.4.4" data-path="linear-regression.html"><a href="linear-regression.html#model-interpetation"><i class="fa fa-check"></i><b>2.4.4</b> Model Interpetation</a></li>
+<li class="chapter" data-level="2.4.5" data-path="linear-regression.html"><a href="linear-regression.html#model-prediction"><i class="fa fa-check"></i><b>2.4.5</b> Model Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-example"><i class="fa fa-check"></i><b>2.5</b> Linear Regression Example</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="linear-regression.html"><a href="linear-regression.html#overview-1"><i class="fa fa-check"></i><b>2.5.1</b> Overview</a></li>
+<li class="chapter" data-level="2.5.2" data-path="linear-regression.html"><a href="linear-regression.html#summarize-data"><i class="fa fa-check"></i><b>2.5.2</b> Summarize Data</a>
+<ul>
+<li class="chapter" data-level="2.5.2.1" data-path="linear-regression.html"><a href="linear-regression.html#univariate-summary-statistics"><i class="fa fa-check"></i><b>2.5.2.1</b> Univariate Summary Statistics</a></li>
+<li class="chapter" data-level="2.5.2.2" data-path="linear-regression.html"><a href="linear-regression.html#scatterplot-and-correlation-matrix"><i class="fa fa-check"></i><b>2.5.2.2</b> Scatterplot and Correlation Matrix</a></li>
+<li class="chapter" data-level="2.5.2.3" data-path="linear-regression.html"><a href="linear-regression.html#box-plots"><i class="fa fa-check"></i><b>2.5.2.3</b> Box Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5.3" data-path="linear-regression.html"><a href="linear-regression.html#results"><i class="fa fa-check"></i><b>2.5.3</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.5.3.1" data-path="linear-regression.html"><a href="linear-regression.html#regression-results-concise"><i class="fa fa-check"></i><b>2.5.3.1</b> Regression Results (Concise)</a></li>
+<li class="chapter" data-level="2.5.3.2" data-path="linear-regression.html"><a href="linear-regression.html#standard-results"><i class="fa fa-check"></i><b>2.5.3.2</b> Standard Results</a></li>
+<li class="chapter" data-level="2.5.3.3" data-path="linear-regression.html"><a href="linear-regression.html#testing-overall-model-significance"><i class="fa fa-check"></i><b>2.5.3.3</b> Testing Overall Model Significance</a></li>
+<li class="chapter" data-level="2.5.3.4" data-path="linear-regression.html"><a href="linear-regression.html#assessing-overall-model-fit"><i class="fa fa-check"></i><b>2.5.3.4</b> Assessing Overall Model Fit</a></li>
+<li class="chapter" data-level="2.5.3.5" data-path="linear-regression.html"><a href="linear-regression.html#individual-independent-variables"><i class="fa fa-check"></i><b>2.5.3.5</b> Individual Independent Variables</a></li>
+<li class="chapter" data-level="2.5.3.6" data-path="linear-regression.html"><a href="linear-regression.html#model-prediction-1"><i class="fa fa-check"></i><b>2.5.3.6</b> Model Prediction</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="linear-regression.html"><a href="linear-regression.html#categorical-ivs"><i class="fa fa-check"></i><b>2.6</b> Categorical IVs</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="linear-regression.html"><a href="linear-regression.html#overview-2"><i class="fa fa-check"></i><b>2.6.1</b> Overview</a></li>
+<li class="chapter" data-level="2.6.2" data-path="linear-regression.html"><a href="linear-regression.html#intercept-shifter"><i class="fa fa-check"></i><b>2.6.2</b> Intercept Shifter</a></li>
+<li class="chapter" data-level="2.6.3" data-path="linear-regression.html"><a href="linear-regression.html#slope-shifter"><i class="fa fa-check"></i><b>2.6.3</b> Slope Shifter</a></li>
+<li class="chapter" data-level="2.6.4" data-path="linear-regression.html"><a href="linear-regression.html#intercept-and-slope-shifter"><i class="fa fa-check"></i><b>2.6.4</b> Intercept and Slope Shifter</a></li>
+<li class="chapter" data-level="2.6.5" data-path="linear-regression.html"><a href="linear-regression.html#multiple-levels"><i class="fa fa-check"></i><b>2.6.5</b> Multiple Levels</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="linear-regression.html"><a href="linear-regression.html#categorical-ivs-example"><i class="fa fa-check"></i><b>2.7</b> Categorical IVs Example</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="linear-regression.html"><a href="linear-regression.html#overview-3"><i class="fa fa-check"></i><b>2.7.1</b> Overview</a></li>
+<li class="chapter" data-level="2.7.2" data-path="linear-regression.html"><a href="linear-regression.html#intercept-shift"><i class="fa fa-check"></i><b>2.7.2</b> Intercept Shift</a></li>
+<li class="chapter" data-level="2.7.3" data-path="linear-regression.html"><a href="linear-regression.html#slope-shift"><i class="fa fa-check"></i><b>2.7.3</b> Slope Shift</a></li>
+<li class="chapter" data-level="2.7.4" data-path="linear-regression.html"><a href="linear-regression.html#intercept-and-slope-shift"><i class="fa fa-check"></i><b>2.7.4</b> Intercept and Slope Shift</a></li>
+<li class="chapter" data-level="2.7.5" data-path="linear-regression.html"><a href="linear-regression.html#intercept-shift-with-multiple-levels"><i class="fa fa-check"></i><b>2.7.5</b> Intercept Shift with Multiple Levels</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="linear-regression.html"><a href="linear-regression.html#suggested-readings-1"><i class="fa fa-check"></i><b>2.8</b> Suggested Readings</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>3</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="logistic-regression.html"><a href="logistic-regression.html#r-packages-and-datasets-for-topic-3"><i class="fa fa-check"></i><b>3.1</b> R Packages and Datasets for Topic 3</a></li>
+<li class="chapter" data-level="3.2" data-path="logistic-regression.html"><a href="logistic-regression.html#motivation-2"><i class="fa fa-check"></i><b>3.2</b> Motivation</a></li>
+<li class="chapter" data-level="3.3" data-path="logistic-regression.html"><a href="logistic-regression.html#why-not-use-linear-regression"><i class="fa fa-check"></i><b>3.3</b> Why not use linear regression?</a></li>
+<li class="chapter" data-level="3.4" data-path="logistic-regression.html"><a href="logistic-regression.html#understanding-logistic-regression"><i class="fa fa-check"></i><b>3.4</b> Understanding Logistic Regression</a></li>
+<li class="chapter" data-level="3.5" data-path="logistic-regression.html"><a href="logistic-regression.html#conducting-logistic-regression"><i class="fa fa-check"></i><b>3.5</b> Conducting Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="logistic-regression.html"><a href="logistic-regression.html#model-estimation-1"><i class="fa fa-check"></i><b>3.5.1</b> Model Estimation</a></li>
+<li class="chapter" data-level="3.5.2" data-path="logistic-regression.html"><a href="logistic-regression.html#assessing-model-fit"><i class="fa fa-check"></i><b>3.5.2</b> Assessing Model Fit</a>
+<ul>
+<li class="chapter" data-level="3.5.2.1" data-path="logistic-regression.html"><a href="logistic-regression.html#goodness-of-fit-measures"><i class="fa fa-check"></i><b>3.5.2.1</b> Goodness-of-Fit Measures</a></li>
+<li class="chapter" data-level="3.5.2.2" data-path="logistic-regression.html"><a href="logistic-regression.html#classification-matrix"><i class="fa fa-check"></i><b>3.5.2.2</b> Classification Matrix</a></li>
+<li class="chapter" data-level="3.5.2.3" data-path="logistic-regression.html"><a href="logistic-regression.html#roc-curve"><i class="fa fa-check"></i><b>3.5.2.3</b> ROC Curve</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpreting-coefficients"><i class="fa fa-check"></i><b>3.5.3</b> Interpreting Coefficients</a></li>
+<li class="chapter" data-level="3.5.4" data-path="logistic-regression.html"><a href="logistic-regression.html#gain-and-lift"><i class="fa fa-check"></i><b>3.5.4</b> Gain and Lift</a>
+<ul>
+<li class="chapter" data-level="3.5.4.1" data-path="logistic-regression.html"><a href="logistic-regression.html#gain"><i class="fa fa-check"></i><b>3.5.4.1</b> Gain</a></li>
+<li class="chapter" data-level="3.5.4.2" data-path="logistic-regression.html"><a href="logistic-regression.html#lift"><i class="fa fa-check"></i><b>3.5.4.2</b> Lift</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5.5" data-path="logistic-regression.html"><a href="logistic-regression.html#sensitivityspecificity-plots"><i class="fa fa-check"></i><b>3.5.5</b> Sensitivity/Specificity Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-example"><i class="fa fa-check"></i><b>3.6</b> Logistic Regression Example</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#overview-4"><i class="fa fa-check"></i><b>3.6.1</b> Overview</a></li>
+<li class="chapter" data-level="3.6.2" data-path="logistic-regression.html"><a href="logistic-regression.html#estimation-results"><i class="fa fa-check"></i><b>3.6.2</b> Estimation Results</a></li>
+<li class="chapter" data-level="3.6.3" data-path="logistic-regression.html"><a href="logistic-regression.html#overall-model-fit"><i class="fa fa-check"></i><b>3.6.3</b> Overall Model Fit</a></li>
+<li class="chapter" data-level="3.6.4" data-path="logistic-regression.html"><a href="logistic-regression.html#interpreting-coefficients-1"><i class="fa fa-check"></i><b>3.6.4</b> Interpreting Coefficients</a></li>
+<li class="chapter" data-level="3.6.5" data-path="logistic-regression.html"><a href="logistic-regression.html#gain-1"><i class="fa fa-check"></i><b>3.6.5</b> Gain</a></li>
+<li class="chapter" data-level="3.6.6" data-path="logistic-regression.html"><a href="logistic-regression.html#lift-1"><i class="fa fa-check"></i><b>3.6.6</b> Lift</a></li>
+<li class="chapter" data-level="3.6.7" data-path="logistic-regression.html"><a href="logistic-regression.html#sensitivityspecificity-plots-1"><i class="fa fa-check"></i><b>3.6.7</b> Sensitivity/Specificity Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="logistic-regression.html"><a href="logistic-regression.html#suggested-readings-2"><i class="fa fa-check"></i><b>3.7</b> Suggested Readings</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="targeting-and-retaining-customers.html"><a href="targeting-and-retaining-customers.html"><i class="fa fa-check"></i><b>4</b> Targeting and Retaining Customers</a></li>
+<li class="chapter" data-level="5" data-path="segmentation.html"><a href="segmentation.html"><i class="fa fa-check"></i><b>5</b> Segmentation</a></li>
+<li class="chapter" data-level="6" data-path="positioning.html"><a href="positioning.html"><i class="fa fa-check"></i><b>6</b> Positioning</a></li>
+<li class="chapter" data-level="7" data-path="ab-testing-and-uplift-modeling.html"><a href="ab-testing-and-uplift-modeling.html"><i class="fa fa-check"></i><b>7</b> A/B Testing and Uplift Modeling</a></li>
+<li class="chapter" data-level="8" data-path="customer-choice.html"><a href="customer-choice.html"><i class="fa fa-check"></i><b>8</b> Customer Choice</a></li>
+<li class="chapter" data-level="9" data-path="marketing-mix.html"><a href="marketing-mix.html"><i class="fa fa-check"></i><b>9</b> Marketing Mix</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Marketing Analytics Lecture Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="logistic-regression" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Topic 3</span> Logistic Regression<a href="logistic-regression.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="r-packages-and-datasets-for-topic-3" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> R Packages and Datasets for Topic 3<a href="logistic-regression.html#r-packages-and-datasets-for-topic-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="logistic-regression.html#cb35-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)       <span class="co"># Advanced graphing capabilities</span></span>
+<span id="cb35-2"><a href="logistic-regression.html#cb35-2" tabindex="-1"></a><span class="fu">library</span>(cowplot)       <span class="co"># Plots in grid</span></span>
+<span id="cb35-3"><a href="logistic-regression.html#cb35-3" tabindex="-1"></a><span class="fu">library</span>(tidyr)         <span class="co"># Easier programming   </span></span>
+<span id="cb35-4"><a href="logistic-regression.html#cb35-4" tabindex="-1"></a><span class="fu">library</span>(flextable)     <span class="co"># Better looking tables</span></span>
+<span id="cb35-5"><a href="logistic-regression.html#cb35-5" tabindex="-1"></a><span class="fu">library</span>(jtools)        <span class="co"># Concise regression results</span></span>
+<span id="cb35-6"><a href="logistic-regression.html#cb35-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)         <span class="co"># Easier programming</span></span>
+<span id="cb35-7"><a href="logistic-regression.html#cb35-7" tabindex="-1"></a><span class="fu">library</span>(MKT4320BGSU)</span>
+<span id="cb35-8"><a href="logistic-regression.html#cb35-8" tabindex="-1"></a><span class="fu">data</span>(directmktg)</span></code></pre></div>
+</details>
+</div>
+<div id="motivation-2" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Motivation<a href="logistic-regression.html#motivation-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Marketers often observe binary outcomes
+<ul>
+<li>Did a customer:
+<ul>
+<li>purchase?</li>
+<li>subscribe?</li>
+<li>renew?</li>
+<li>respond?</li>
+</ul></li>
+</ul></li>
+<li>Using linear regression is not appropriate…</li>
+<li>…But logistic regression still allows us to:
+<ul>
+<li>Understand IV/DV relationships</li>
+<li>Make predictions</li>
+</ul></li>
+</ul>
+</div>
+<div id="why-not-use-linear-regression" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Why not use linear regression?<a href="logistic-regression.html#why-not-use-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Want to see how <span class="math inline">\(age\)</span> affects <span class="math inline">\(buy\)</span></p>
+<ul>
+<li><span class="math inline">\(buy=\begin{cases}1\text{ if yes/true}\\0\text{ if no/false}\end{cases}\)</span></li>
+</ul>
+<p>Examine relationship with a scatterplot</p>
+<ul>
+<li>What do we see?</li>
+</ul>
+<p><strong><em>Figure 3.1: Scatterplot with Binary DV</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="logistic-regression.html#cb36-1" tabindex="-1"></a>directmktg <span class="sc">%&gt;%</span>    <span class="co"># Data</span></span>
+<span id="cb36-2"><a href="logistic-regression.html#cb36-2" tabindex="-1"></a>         <span class="co"># Create numeric 0,1 variable for factor variable &quot;buy&quot;</span></span>
+<span id="cb36-3"><a href="logistic-regression.html#cb36-3" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">buy01=</span><span class="fu">as.numeric</span>(buy)<span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="logistic-regression.html#cb36-4" tabindex="-1"></a>         <span class="co"># Send to ggplot</span></span>
+<span id="cb36-5"><a href="logistic-regression.html#cb36-5" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>buy01)) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="logistic-regression.html#cb36-6" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="logistic-regression.html#cb36-7" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb36-8"><a href="logistic-regression.html#cb36-8" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Buy&quot;</span>)</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3scatter01-1.png" alt="" width="672" /></p>
+<ul>
+<li>Try linear regression: <span class="math inline">\(buy=\alpha+\beta_1 age\)</span></li>
+</ul>
+<p><strong><em>Table 3.1: Linear Regression Results</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="logistic-regression.html#cb37-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> directmktg <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="logistic-regression.html#cb37-2" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">buy=</span><span class="fu">as.numeric</span>(buy)<span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="logistic-regression.html#cb37-3" tabindex="-1"></a>   <span class="fu">lm</span>(buy <span class="sc">~</span> age, .)</span>
+<span id="cb37-4"><a href="logistic-regression.html#cb37-4" tabindex="-1"></a><span class="fu">summ</span>(model, <span class="at">model.info=</span><span class="cn">FALSE</span>, <span class="at">digits=</span><span class="dv">4</span>)</span></code></pre></div>
+</details>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+F(1,398)
+</td>
+<td style="text-align:right;">
+251.7421
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+R²
+</td>
+<td style="text-align:right;">
+0.3874
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Adj. R²
+</td>
+<td style="text-align:right;">
+0.3859
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Est.
+</th>
+<th style="text-align:right;">
+S.E.
+</th>
+<th style="text-align:right;">
+t val.
+</th>
+<th style="text-align:right;">
+p
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+-0.7154
+</td>
+<td style="text-align:right;">
+0.0702
+</td>
+<td style="text-align:right;">
+-10.1930
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+age
+</td>
+<td style="text-align:right;">
+0.0285
+</td>
+<td style="text-align:right;">
+0.0018
+</td>
+<td style="text-align:right;">
+15.8664
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS
+</td>
+</tr>
+</tfoot>
+</table>
+<ul>
+<li><p>Good <span class="math inline">\(R^2\)</span> and <span class="math inline">\(age\)</span> is highly significant</p></li>
+<li><p>So what’s the problem?</p></li>
+<li><p>Predict <span class="math inline">\(buy\)</span> from linear regression results:<br>
+<span class="math inline">\(\hat{buy}=-.7154+.0285age\)</span></p></li>
+<li><p>Prediction line shown in plot</p></li>
+</ul>
+<p><strong><em>Figure 3.2: Predicted Values from Linear Regression</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="logistic-regression.html#cb38-1" tabindex="-1"></a>directmktg <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="logistic-regression.html#cb38-2" tabindex="-1"></a>   <span class="fu">select</span>(age) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="logistic-regression.html#cb38-3" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">yhat=</span><span class="fu">predict</span>(model,.)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="logistic-regression.html#cb38-4" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">neg=</span><span class="fu">as.factor</span>(<span class="fu">ifelse</span>(yhat<span class="sc">&lt;</span><span class="dv">0</span>,<span class="st">&quot;Yes&quot;</span>,<span class="st">&quot;No&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="logistic-regression.html#cb38-5" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>yhat, <span class="at">color=</span>neg)) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="logistic-regression.html#cb38-6" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb38-7"><a href="logistic-regression.html#cb38-7" tabindex="-1"></a>   <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span><span class="ot">=</span><span class="st">&quot;red&quot;</span>,</span>
+<span id="cb38-8"><a href="logistic-regression.html#cb38-8" tabindex="-1"></a>                               <span class="st">&quot;No&quot;</span><span class="ot">=</span><span class="st">&quot;black&quot;</span>),</span>
+<span id="cb38-9"><a href="logistic-regression.html#cb38-9" tabindex="-1"></a>                               <span class="at">guide=</span><span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-10"><a href="logistic-regression.html#cb38-10" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb38-11"><a href="logistic-regression.html#cb38-11" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Linear Prediction&quot;</span>)</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3scatter02-1.png" alt="" width="672" /></p>
+<p>Add <span class="math inline">\(age\)</span> categories and plot mean <span class="math inline">\(buy\)</span> for each category
+* What “shape” does this resemble?
+* Can we use this “shape” to model the relationship?</p>
+<p><strong><em>Figure 3.3: Buy for Age Groups</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="logistic-regression.html#cb39-1" tabindex="-1"></a><span class="co"># Create data frame grouped by age</span></span>
+<span id="cb39-2"><a href="logistic-regression.html#cb39-2" tabindex="-1"></a>dmgrp <span class="ot">&lt;-</span> directmktg <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="logistic-regression.html#cb39-3" tabindex="-1"></a>         <span class="co"># &#39;cut&#39; breaks a continuous variable into groups of each width</span></span>
+<span id="cb39-4"><a href="logistic-regression.html#cb39-4" tabindex="-1"></a>         <span class="co"># &#39;as.numeric&#39; keeps the new variable as integer (vs. factor)</span></span>
+<span id="cb39-5"><a href="logistic-regression.html#cb39-5" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">agegrp =</span> <span class="fu">as.numeric</span>(<span class="fu">cut</span>(age, <span class="dv">9</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a href="logistic-regression.html#cb39-6" tabindex="-1"></a>   <span class="fu">group_by</span>(agegrp) <span class="sc">%&gt;%</span></span>
+<span id="cb39-7"><a href="logistic-regression.html#cb39-7" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">age=</span><span class="fu">mean</span>(age), <span class="at">buy=</span><span class="fu">mean</span>(<span class="fu">as.numeric</span>(buy)<span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb39-8"><a href="logistic-regression.html#cb39-8" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="logistic-regression.html#cb39-9" tabindex="-1"></a>      <span class="co"># Run logistic model to create prediction to make s-curve</span></span>
+<span id="cb39-10"><a href="logistic-regression.html#cb39-10" tabindex="-1"></a>binmod <span class="ot">&lt;-</span> <span class="fu">glm</span>(buy<span class="sc">~</span>age, directmktg, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb39-11"><a href="logistic-regression.html#cb39-11" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="logistic-regression.html#cb39-12" tabindex="-1"></a>      <span class="co"># Create dataframe with predicted values</span></span>
+<span id="cb39-13"><a href="logistic-regression.html#cb39-13" tabindex="-1"></a>dmpred <span class="ot">&lt;-</span> directmktg <span class="sc">%&gt;%</span></span>
+<span id="cb39-14"><a href="logistic-regression.html#cb39-14" tabindex="-1"></a>   <span class="fu">select</span>(age, buy) <span class="sc">%&gt;%</span></span>
+<span id="cb39-15"><a href="logistic-regression.html#cb39-15" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">yhat=</span><span class="fu">predict</span>(binmod, <span class="at">type=</span><span class="st">&quot;response&quot;</span>),</span>
+<span id="cb39-16"><a href="logistic-regression.html#cb39-16" tabindex="-1"></a>          <span class="at">buy=</span><span class="fu">as.numeric</span>(buy)<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb39-17"><a href="logistic-regression.html#cb39-17" tabindex="-1"></a>    </span>
+<span id="cb39-18"><a href="logistic-regression.html#cb39-18" tabindex="-1"></a></span>
+<span id="cb39-19"><a href="logistic-regression.html#cb39-19" tabindex="-1"></a>      <span class="co"># Create combined plot; each geom with separate data</span></span>
+<span id="cb39-20"><a href="logistic-regression.html#cb39-20" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb39-21"><a href="logistic-regression.html#cb39-21" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">data=</span>directmktg, </span>
+<span id="cb39-22"><a href="logistic-regression.html#cb39-22" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>(<span class="fu">as.numeric</span>(buy)<span class="sc">-</span><span class="dv">1</span>)), </span>
+<span id="cb39-23"><a href="logistic-regression.html#cb39-23" tabindex="-1"></a>              <span class="at">size=</span><span class="dv">3</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb39-24"><a href="logistic-regression.html#cb39-24" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="at">data=</span>dmgrp, </span>
+<span id="cb39-25"><a href="logistic-regression.html#cb39-25" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>buy), </span>
+<span id="cb39-26"><a href="logistic-regression.html#cb39-26" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">color=</span><span class="st">&quot;midnightblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-27"><a href="logistic-regression.html#cb39-27" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">data=</span>dmpred, </span>
+<span id="cb39-28"><a href="logistic-regression.html#cb39-28" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>yhat), </span>
+<span id="cb39-29"><a href="logistic-regression.html#cb39-29" tabindex="-1"></a>                  <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">color=</span><span class="st">&quot;darkorange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-30"><a href="logistic-regression.html#cb39-30" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>)) <span class="sc">+</span> </span>
+<span id="cb39-31"><a href="logistic-regression.html#cb39-31" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Age&quot;</span>, <span class="at">y=</span><span class="st">&quot;Buy&quot;</span>)</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3lineshape-1.png" alt="" width="672" /></p>
+</div>
+<div id="understanding-logistic-regression" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Understanding Logistic Regression<a href="logistic-regression.html#understanding-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Uses the logistic function:<br>
+<span class="math inline">\(f(z)=\frac{e^u}{1+e^u}\)</span>
+<ul>
+<li><span class="math inline">\(f(z)\)</span> is the probability of event happening
+<ul>
+<li>When <span class="math inline">\(u=0\)</span>, <span class="math inline">\(f(z)=\frac{e^0}{1+e^0}=\frac{1}{1+1}=0.5\)</span></li>
+</ul></li>
+<li><span class="math inline">\(u\)</span> is a linear function, such as: <span class="math inline">\(\alpha+\beta x\)</span></li>
+</ul></li>
+<li>Ensures predictions are never above 1 or below 0</li>
+</ul>
+<p><strong><em>Figure 3.4: Logistic Function</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="logistic-regression.html#cb40-1" tabindex="-1"></a>   <span class="co"># Create simulated data frame based on logistic function</span></span>
+<span id="cb40-2"><a href="logistic-regression.html#cb40-2" tabindex="-1"></a>u<span class="ot">=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">7</span>,<span class="dv">7</span>,.<span class="dv">05</span>)</span>
+<span id="cb40-3"><a href="logistic-regression.html#cb40-3" tabindex="-1"></a>fz<span class="ot">=</span><span class="fu">exp</span>(u)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(u))</span>
+<span id="cb40-4"><a href="logistic-regression.html#cb40-4" tabindex="-1"></a>ufz<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">u=</span>u, <span class="at">fz=</span>fz)</span>
+<span id="cb40-5"><a href="logistic-regression.html#cb40-5" tabindex="-1"></a>   <span class="co"># Plot function</span></span>
+<span id="cb40-6"><a href="logistic-regression.html#cb40-6" tabindex="-1"></a>ufz <span class="sc">%&gt;%</span></span>
+<span id="cb40-7"><a href="logistic-regression.html#cb40-7" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>u, <span class="at">y=</span>fz)) <span class="sc">+</span></span>
+<span id="cb40-8"><a href="logistic-regression.html#cb40-8" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&quot;darkorange&quot;</span>, <span class="at">size=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb40-9"><a href="logistic-regression.html#cb40-9" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>),</span>
+<span id="cb40-10"><a href="logistic-regression.html#cb40-10" tabindex="-1"></a>         <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb40-11"><a href="logistic-regression.html#cb40-11" tabindex="-1"></a>   <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="dv">0</span>, <span class="at">minor_breaks=</span><span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb40-12"><a href="logistic-regression.html#cb40-12" tabindex="-1"></a>   <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">minor_breaks=</span><span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb40-13"><a href="logistic-regression.html#cb40-13" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;u&quot;</span>, <span class="at">y=</span><span class="st">&quot;f(z)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-14"><a href="logistic-regression.html#cb40-14" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">xend=</span><span class="dv">0</span>, <span class="at">yend=</span><span class="fl">0.5</span>, </span>
+<span id="cb40-15"><a href="logistic-regression.html#cb40-15" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-16"><a href="logistic-regression.html#cb40-16" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="sc">-</span><span class="dv">7</span>, <span class="at">y=</span><span class="fl">0.5</span>, <span class="at">xend=</span><span class="dv">0</span>, <span class="at">yend=</span><span class="fl">0.5</span>, </span>
+<span id="cb40-17"><a href="logistic-regression.html#cb40-17" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>) </span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3logitcurve-1.png" alt="" width="672" /></p>
+<ul>
+<li>Probability of event success vs. failure <span class="math inline">\(=\frac{f(z)}{1-f(z)}=\)</span> Odds Ratio (<span class="math inline">\(OR\)</span>)
+<ul>
+<li>Suppose probability of success <span class="math inline">\(=.01\)</span>, then:<br>
+<span class="math inline">\(OR=\frac{.01}{1-.01}=.0101\)</span>
+<ul>
+<li>Suppose probability of success <span class="math inline">\(=.001\)</span>, then:<br>
+<span class="math inline">\(OR=\frac{.001}{1-.001}=.0010\)</span></li>
+<li>Suppose probability of success <span class="math inline">\(=.99\)</span>, then:<br>
+<span class="math inline">\(OR=\frac{.99}{1-.99}=99\)</span></li>
+<li>Suppose probability of success <span class="math inline">\(=.999\)</span>, then:<br>
+<span class="math inline">\(OR=\frac{.999}{1-.999}=999\)</span></li>
+<li>Suppose probability of success <span class="math inline">\(=.5\)</span>, then:<br>
+<span class="math inline">\(OR=\frac{.5}{1-.5}=1\)</span></li>
+</ul></li>
+</ul></li>
+<li>Substituting logistic function for <span class="math inline">\(f(z)\)</span> into Odds Ratio <span class="math inline">\(\Rightarrow\)</span><br>
+<span class="math inline">\(OR=e^u=e^{\alpha+betax}\)</span>
+<ul>
+<li><span class="math inline">\(\frac{f(z)}{1-f(z)}=\frac{\frac{e^u}{1+e^u}}{1-\frac{e^u}{1+e^u}}=\frac{\frac{e^u}{1+e^u}}{\frac{1+e^u}{1+e^u}-\frac{e^u}{1+e^u}}=\frac{\frac{e^u}{1+e^u}}{\frac{1}{1+e^u}}=e^u\)</span></li>
+</ul></li>
+<li>Can transform exponential function into linear <span class="math inline">\(\Rightarrow\)</span><br>
+<span class="math inline">\(Logit=\ln(OR)=\alpha+\beta x\)</span></li>
+</ul>
+</div>
+<div id="conducting-logistic-regression" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Conducting Logistic Regression<a href="logistic-regression.html#conducting-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Model Estimation</li>
+<li>Assessing Model Fit
+<ul>
+<li>Goodness of Fit Measures</li>
+<li>Classification Matrix</li>
+<li>ROC Curve</li>
+</ul></li>
+<li>Interpreting Coefficients</li>
+<li>Gains and Lift</li>
+</ul>
+<div id="model-estimation-1" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Model Estimation<a href="logistic-regression.html#model-estimation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Best to use training data and holdout data
+<ul>
+<li>Estimate model on training data (~75% of sample)</li>
+<li>Check prediction accuracy on holdout data (~25%)</li>
+</ul></li>
+<li>Can estimate either (1) <span class="math inline">\(OR\)</span> or (2) <span class="math inline">\(Logit\)</span> formulation
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(OR=e^{\alpha+\beta_1x_1+\cdots+\beta_kx_k}\)</span></li>
+<li><span class="math inline">\(Logit=\alpha+\beta_1x_1+\cdots+\beta_kx_k\)</span></li>
+</ol></li>
+<li>Independent variables:
+<ul>
+<li>Can be one or more</li>
+<li>Can be continuous or categorical/factor</li>
+</ul></li>
+</ul>
+</div>
+<div id="assessing-model-fit" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Assessing Model Fit<a href="logistic-regression.html#assessing-model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="goodness-of-fit-measures" class="section level4 hasAnchor" number="3.5.2.1">
+<h4><span class="header-section-number">3.5.2.1</span> Goodness-of-Fit Measures<a href="logistic-regression.html#goodness-of-fit-measures" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Overall significance based on <span class="math inline">\(-2LL\)</span>
+<ul>
+<li>Lower (closer to <span class="math inline">\(0\)</span>) <span class="math inline">\(-2LL\)</span> indicates a better fit</li>
+<li>Compare <span class="math inline">\(-2LL\)</span> of estimated model with “null” model</li>
+</ul></li>
+<li>McFadden’s Pseudo-<span class="math inline">\(R^2\)</span>
+<ul>
+<li>Values range from 0 to 1 like linear regression</li>
+<li>Interpreted in a similar manner
+<ul>
+<li>Amount of variation in DV explained by IVs</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="classification-matrix" class="section level4 hasAnchor" number="3.5.2.2">
+<h4><span class="header-section-number">3.5.2.2</span> Classification Matrix<a href="logistic-regression.html#classification-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>How does the model do in predicting outcomes?</li>
+<li>Generate predicted probability of success, <span class="math inline">\(p(\text{SUCCESS})\)</span>, for each observation
+<ul>
+<li>If <span class="math inline">\(p(\text{SUCCESS})\ge0.5\)</span>, predict <span class="math inline">\(\text{SUCCESS}=1\)</span></li>
+<li>If <span class="math inline">\(p(\text{SUCCESS})&lt;0.5\)</span>, predict <span class="math inline">\(\text{SUCCESS}=0\)</span>, or <span class="math inline">\(\text{FAILURE}\)</span></li>
+</ul></li>
+<li>Check predictions against actual outcomes
+<ul>
+<li>Examine both training and holdout data</li>
+</ul></li>
+</ul>
+<p><strong><em>Figure 3.5: Classification Matrix</em></strong>
+<img src="Topic03/ClassMat.png" alt="" width="875" /></p>
+<ul>
+<li>Four main measures
+<ul>
+<li>Sensitivity: Predicted success given actual success
+<ul>
+<li><span class="math inline">\(p(\hat{+}|+)=a/(a+c)\)</span></li>
+<li><em>“Of all the people who actually had the outcome, how many did we predict correctly?”</em></li>
+</ul></li>
+<li>Specificity: Predicted failure given actual failure
+<ul>
+<li><span class="math inline">\(p(\hat{-}|-)=d/(b+d)\)</span></li>
+<li><em>“Of all the people who didn’t actually have the outcome, how many did we predict correctly?”</em></li>
+</ul></li>
+<li>Precision: Proportion of positive predictions actually correct
+<ul>
+<li><span class="math inline">\(a/(a+b)\)</span></li>
+<li><em>“Of all the times predicted the outcome, how many were correct?</em></li>
+</ul></li>
+<li>Overall correctly classified
+<ul>
+<li><span class="math inline">\((a+d)/(a+b+c+d)\)</span></li>
+</ul></li>
+</ul></li>
+<li>Sensitivity vs. Specificity
+<ul>
+<li>Ideally, want both to be high, but…<br>
+the <span class="math inline">\(p(\text{SUCCESS})\ge\pi\)</span> threshold can be changed</li>
+<li>Why change <span class="math inline">\(\pi\)</span>? Avoid false positives or negatives</li>
+<li>By default:
+<ul>
+<li>Increasing sensitivity decreases specificity</li>
+<li>Increasing specificity decreases sensitivity</li>
+<li>Visualizing sensitivity and specificity
+<img src="Topic03/SensSpec1.png" alt="" width="70%" />
+<img src="Topic03/SensSpec2.png" alt="" width="70%" />
+<img src="Topic03/SensSpec3.png" alt="" width="70%" />
+<img src="Topic03/SensSpec4.png" alt="" width="70%" /></li>
+</ul></li>
+</ul></li>
+<li>Overall correctly classified
+<ul>
+<li>Compare with <em>Proportional Chance Criterion (</em><span class="math inline">\(PCC\)</span><em>)</em>
+<ul>
+<li><span class="math inline">\(PCC\)</span> is the “average” probability of classification based on group sizes</li>
+</ul></li>
+<li><span class="math inline">\(PCC=p^2+(1-p)^2\)</span> where <span class="math inline">\(p\)</span> is the proportion of sample in the <span class="math inline">\(\text{SUCCESS}\)</span> group</li>
+<li>Overall correctly classified <span class="math inline">\(&gt;PCC\)</span> considered good fit when examining holdout data</li>
+</ul></li>
+</ul>
+</div>
+<div id="roc-curve" class="section level4 hasAnchor" number="3.5.2.3">
+<h4><span class="header-section-number">3.5.2.3</span> ROC Curve<a href="logistic-regression.html#roc-curve" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Plot sensitivity by <span class="math inline">\(1-\)</span> specificity as <span class="math inline">\(\pi\)</span> goes from <span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span></li>
+<li>More area under curve means better model
+<table style="text-align: center;">
+<tr>
+<td>
+<strong>Area under Curve</strong>
+</td>
+<td>
+<strong>Discrimination</strong>
+</td>
+</tr>
+<tr>
+<td style="font-family: cambria;">
+<em>AUC</em> = .5
+</td>
+<td>
+None
+</td>
+</tr>
+<tr>
+<td style="font-family: cambria;">
+.5 &lt; <em>AUC</em> &lt; .7
+</td>
+<td>
+Poor
+</td>
+</tr>
+<tr>
+<td style="font-family: cambria;">
+.7 ≤ <em>AUC</em> &lt; .8
+</td>
+<td>
+Acceptable
+</td>
+</tr>
+<tr>
+<td style="font-family: cambria;">
+.8 ≤ <em>AUC</em> &lt; .9
+</td>
+<td>
+Excellent
+</td>
+</tr>
+<tr>
+<td style="font-family: cambria;">
+<em>AUC</em> ≥ .9
+</td>
+<td>
+Outstanding
+</td>
+</tr>
+</table></li>
+</ul>
+<p><strong><em>Figure 3.6: Sample ROC Curve</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="logistic-regression.html#cb41-1" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">001</span>)</span>
+<span id="cb41-2"><a href="logistic-regression.html#cb41-2" tabindex="-1"></a>sens <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">-</span>spec<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb41-3"><a href="logistic-regression.html#cb41-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(spec,sens)</span>
+<span id="cb41-4"><a href="logistic-regression.html#cb41-4" tabindex="-1"></a><span class="fu">data.frame</span>(spec,sens) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-5"><a href="logistic-regression.html#cb41-5" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">sens=</span><span class="fu">ifelse</span>(sens<span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,sens)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-6"><a href="logistic-regression.html#cb41-6" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">sens=</span><span class="fu">ifelse</span>(sens<span class="sc">&lt;</span><span class="dv">0</span>,<span class="dv">0</span>,sens)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-7"><a href="logistic-regression.html#cb41-7" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>spec, <span class="at">y=</span>sens)) <span class="sc">+</span></span>
+<span id="cb41-8"><a href="logistic-regression.html#cb41-8" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&quot;darkorange&quot;</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb41-9"><a href="logistic-regression.html#cb41-9" tabindex="-1"></a>   <span class="fu">scale_x_reverse</span>() <span class="sc">+</span> </span>
+<span id="cb41-10"><a href="logistic-regression.html#cb41-10" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">xend=</span><span class="dv">0</span>, <span class="at">yend=</span><span class="dv">1</span>, </span>
+<span id="cb41-11"><a href="logistic-regression.html#cb41-11" tabindex="-1"></a>                <span class="at">color=</span><span class="st">&quot;forestgreen&quot;</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb41-12"><a href="logistic-regression.html#cb41-12" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span><span class="sc">-</span>.<span class="dv">495</span>, <span class="at">y=</span>.<span class="dv">495</span>, <span class="at">xend=</span><span class="sc">-</span>.<span class="dv">375</span>, <span class="at">yend=</span>.<span class="dv">375</span>,</span>
+<span id="cb41-13"><a href="logistic-regression.html#cb41-13" tabindex="-1"></a>                <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">ends=</span><span class="st">&quot;first&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb41-14"><a href="logistic-regression.html#cb41-14" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span>.<span class="dv">375</span>, <span class="at">y=</span>.<span class="dv">35</span>, </span>
+<span id="cb41-15"><a href="logistic-regression.html#cb41-15" tabindex="-1"></a>            <span class="at">label=</span><span class="st">&quot;Chance Model&quot;</span>, <span class="at">size=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb41-16"><a href="logistic-regression.html#cb41-16" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb41-17"><a href="logistic-regression.html#cb41-17" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Specificity&quot;</span>, <span class="at">y=</span><span class="st">&quot;Sensitivity&quot;</span>)</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3sampleroc-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="interpreting-coefficients" class="section level3 hasAnchor" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Interpreting Coefficients<a href="logistic-regression.html#interpreting-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Relationship between DV and each IV</li>
+<li><span class="math inline">\(H_0: \beta_k=0\)</span> <em>vs.</em> <span class="math inline">\(H_a: \beta_k\ne0\)</span></li>
+<li>Interpret significant relationships
+<ul>
+<li>Interpretation depends on <span class="math inline">\(OR\)</span> or <span class="math inline">\(Logit\)</span> estimation</li>
+<li>Direction of relationship:
+<ul>
+<li><span class="math inline">\(Logit\)</span> estimation: <span class="math inline">\(\beta_k&gt;0\)</span> for positive, <span class="math inline">\(\beta_k&lt;0\)</span> for negative</li>
+<li><span class="math inline">\(OR\)</span> estimation: <span class="math inline">\(\beta_k&gt;1\)</span> for positive, <span class="math inline">\(\beta_k&lt;1\)</span> for negative</li>
+</ul></li>
+<li>Magnitude of change:
+<ul>
+<li><span class="math inline">\(Logit\)</span> estimation: coefficients are not particularly useful</li>
+<li><span class="math inline">\(OR\)</span> estimation:
+<ul>
+<li>Percentage change in odds</li>
+<li>Compare probabilities between groups</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Interaction of continuous IV and dummy IV
+<ul>
+<li><span class="math inline">\(Logit=\alpha+\beta_1x_1+\beta_2D+\beta_3(x_1\times D)\)</span></li>
+<li>When <span class="math inline">\(D=0\)</span>, <span class="math inline">\(Logit=\alpha+\beta_1x_1\)</span>, so:<br><span class="math inline">\(OR(x_1)=e^{\beta_1}\)</span></li>
+<li>When <span class="math inline">\(D=1\)</span>, <span class="math inline">\(Logit=(\alpha+\beta_2)+(\beta_1+\beta_3)x_1\)</span>, so:<br><span class="math inline">\(OR(x_1)=e^{(\beta_1+\beta_3)}\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div id="gain-and-lift" class="section level3 hasAnchor" number="3.5.4">
+<h3><span class="header-section-number">3.5.4</span> Gain and Lift<a href="logistic-regression.html#gain-and-lift" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Evaluate performance of classification</li>
+<li>Example:
+<ul>
+<li>Suppose <span class="math inline">\(10\%\)</span> of <span class="math inline">\(2000\)</span> customers will accept offer</li>
+<li>For <span class="math inline">\(100\)</span> random customers, expect <span class="math inline">\(10\)</span> accepted offers</li>
+<li>Model predicts some customers more likely to accept</li>
+<li>Instead of contacting <span class="math inline">\(100\)</span> random customers…<br>Contact <span class="math inline">\(100\)</span> most likely to accept based on model</li>
+<li>Continue doing this in groups of <span class="math inline">\(100\)</span> (or <span class="math inline">\(200\)</span>, etc.)</li>
+</ul></li>
+<li>Gain and lift provide measures of how much better the model performs vs. no model/random</li>
+<li>Process
+<ol style="list-style-type: decimal">
+<li>Predict <span class="math inline">\(p(\text{SUCCESS})\)</span> for each observation and sort descending</li>
+<li>Split into 10 (deciles) or 20 (demi-deciles) ordered groups</li>
+<li>Calculate <span class="math inline">\(\%\)</span> observations and <span class="math inline">\(\%\)</span> successes for each group</li>
+</ol></li>
+</ul>
+<div id="gain" class="section level4 hasAnchor" number="3.5.4.1">
+<h4><span class="header-section-number">3.5.4.1</span> Gain<a href="logistic-regression.html#gain" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Cumulative successes up to that group divided by total successes across all groups</li>
+<li>Plot on <span class="math inline">\(y\)</span>-axis, with cumulative percent of observations on <span class="math inline">\(x\)</span>-axis</li>
+<li>Example:
+<ul>
+<li>Supposed out of 2000 customers, 200 (or 10%) will ultimately buy</li>
+<li>If we randomly contact 20% (or 400), how many buyers would be expect?
+<ul>
+<li>20% of 200 total buyers = 40 buyers</li>
+</ul></li>
+<li>What if we contact the top 20% most likely to buy?
+<ul>
+<li>Get about 55% of ultimate buyers…</li>
+<li>55% of 200 total buyers = 110 buyers</li>
+</ul></li>
+<li>We “gained” 35% or 70 buyers</li>
+</ul></li>
+</ul>
+<p><strong><em>Figure 3.7: Typical Gain Chart Shape</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="logistic-regression.html#cb42-1" tabindex="-1"></a>pcc <span class="ot">&lt;-</span> <span class="fu">seq</span>(.<span class="dv">05</span>,<span class="dv">1</span>,.<span class="dv">01</span>)</span>
+<span id="cb42-2"><a href="logistic-regression.html#cb42-2" tabindex="-1"></a>pcp <span class="ot">&lt;-</span> .<span class="dv">3376</span><span class="sc">*</span><span class="fu">log</span>(pcc)<span class="sc">+</span><span class="fl">1.0944</span></span>
+<span id="cb42-3"><a href="logistic-regression.html#cb42-3" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="logistic-regression.html#cb42-4" tabindex="-1"></a><span class="fu">data.frame</span>(pcc,pcp) <span class="sc">%&gt;%</span></span>
+<span id="cb42-5"><a href="logistic-regression.html#cb42-5" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">pcp=</span><span class="fu">ifelse</span>(pcp<span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,pcp)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-6"><a href="logistic-regression.html#cb42-6" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>pcc, <span class="at">y=</span>pcp)) <span class="sc">+</span></span>
+<span id="cb42-7"><a href="logistic-regression.html#cb42-7" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&quot;midnightblue&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb42-8"><a href="logistic-regression.html#cb42-8" tabindex="-1"></a>   <span class="fu">scale_x_continuous</span>(<span class="st">&quot;Proportion Customers Contacted&quot;</span>,</span>
+<span id="cb42-9"><a href="logistic-regression.html#cb42-9" tabindex="-1"></a>                      <span class="at">limits=</span><span class="fu">c</span>(.<span class="dv">05</span>,<span class="dv">1</span>), <span class="at">breaks=</span><span class="fu">seq</span>(.<span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb42-10"><a href="logistic-regression.html#cb42-10" tabindex="-1"></a>   <span class="fu">scale_y_continuous</span>(<span class="st">&quot;Proportion Customers Positive&quot;</span>,</span>
+<span id="cb42-11"><a href="logistic-regression.html#cb42-11" tabindex="-1"></a>                      <span class="at">limits=</span><span class="fu">c</span>(.<span class="dv">05</span>,<span class="dv">1</span>), <span class="at">breaks=</span><span class="fu">seq</span>(.<span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb42-12"><a href="logistic-regression.html#cb42-12" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span>.<span class="dv">05</span>, <span class="at">y=</span>.<span class="dv">05</span>, <span class="at">xend=</span><span class="dv">1</span>, <span class="at">yend=</span><span class="dv">1</span>, </span>
+<span id="cb42-13"><a href="logistic-regression.html#cb42-13" tabindex="-1"></a>                <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb42-14"><a href="logistic-regression.html#cb42-14" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span>.<span class="dv">9</span>, <span class="at">y=</span>.<span class="dv">775</span>, <span class="at">xend=</span>.<span class="dv">9</span>, <span class="at">yend=</span>.<span class="dv">895</span>,</span>
+<span id="cb42-15"><a href="logistic-regression.html#cb42-15" tabindex="-1"></a>                <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">ends=</span><span class="st">&quot;last&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb42-16"><a href="logistic-regression.html#cb42-16" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span>.<span class="dv">9</span>, <span class="at">y=</span>.<span class="dv">765</span>, </span>
+<span id="cb42-17"><a href="logistic-regression.html#cb42-17" tabindex="-1"></a>            <span class="at">label=</span><span class="st">&quot;Baseline Model&quot;</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb42-18"><a href="logistic-regression.html#cb42-18" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb42-19"><a href="logistic-regression.html#cb42-19" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span>.<span class="dv">2</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">xend=</span>.<span class="dv">2</span>, <span class="at">yend=</span>.<span class="dv">55105376</span>, </span>
+<span id="cb42-20"><a href="logistic-regression.html#cb42-20" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">&quot;darkorange&quot;</span>, <span class="at">size=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb42-21"><a href="logistic-regression.html#cb42-21" tabindex="-1"></a>            <span class="fu">geom_segment</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span>.<span class="dv">2</span>, <span class="at">xend=</span>.<span class="dv">2</span>, <span class="at">yend=</span>.<span class="dv">2</span>, </span>
+<span id="cb42-22"><a href="logistic-regression.html#cb42-22" tabindex="-1"></a>                         <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">&quot;darkorange&quot;</span>, <span class="at">size=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb42-23"><a href="logistic-regression.html#cb42-23" tabindex="-1"></a>            <span class="fu">geom_segment</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span>.<span class="dv">55105376</span>, <span class="at">xend=</span>.<span class="dv">2</span>, <span class="at">yend=</span>.<span class="dv">55105376</span>,</span>
+<span id="cb42-24"><a href="logistic-regression.html#cb42-24" tabindex="-1"></a>                         <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">&quot;darkorange&quot;</span>, <span class="at">size=</span>.<span class="dv">75</span>)</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3typgain-1.png" alt="" width="672" /></p>
+</div>
+<div id="lift" class="section level4 hasAnchor" number="3.5.4.2">
+<h4><span class="header-section-number">3.5.4.2</span> Lift<a href="logistic-regression.html#lift" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Ratio of cumulative success up to that group divided by expected success from no model</li>
+<li>Plot on <span class="math inline">\(y\)</span>-axis, with cumulative percent of observations on <span class="math inline">\(x\)</span>-axis</li>
+</ul>
+<p><strong><em>Figure 3.8: Typical Lift Chart Shape</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="logistic-regression.html#cb43-1" tabindex="-1"></a>lift <span class="ot">&lt;-</span> <span class="fl">2.7863</span><span class="sc">*</span>pcc<span class="sc">^</span><span class="dv">3</span><span class="fl">-4.5901</span><span class="sc">*</span>pcc<span class="sc">^</span><span class="dv">2</span><span class="fl">+.2319</span><span class="sc">*</span>pcc<span class="fl">+2.5673</span></span>
+<span id="cb43-2"><a href="logistic-regression.html#cb43-2" tabindex="-1"></a><span class="fu">data.frame</span>(pcc,lift) <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="logistic-regression.html#cb43-3" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">lift=</span><span class="fu">ifelse</span>(lift<span class="sc">&lt;</span><span class="dv">1</span>,<span class="dv">1</span>,lift)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-4"><a href="logistic-regression.html#cb43-4" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>pcc, <span class="at">y=</span>lift)) <span class="sc">+</span></span>
+<span id="cb43-5"><a href="logistic-regression.html#cb43-5" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&quot;midnightblue&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb43-6"><a href="logistic-regression.html#cb43-6" tabindex="-1"></a>   <span class="fu">scale_x_continuous</span>(<span class="st">&quot;Proportion Customers Contacted&quot;</span>,</span>
+<span id="cb43-7"><a href="logistic-regression.html#cb43-7" tabindex="-1"></a>                      <span class="at">limits=</span><span class="fu">c</span>(.<span class="dv">05</span>,<span class="dv">1</span>), <span class="at">breaks=</span><span class="fu">seq</span>(.<span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb43-8"><a href="logistic-regression.html#cb43-8" tabindex="-1"></a>   <span class="fu">scale_y_continuous</span>(<span class="st">&quot;Lift&quot;</span>,</span>
+<span id="cb43-9"><a href="logistic-regression.html#cb43-9" tabindex="-1"></a>                      <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">2.6</span>), <span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="fl">2.5</span>,.<span class="dv">25</span>)) <span class="sc">+</span></span>
+<span id="cb43-10"><a href="logistic-regression.html#cb43-10" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span>.<span class="dv">05</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">xend=</span><span class="dv">1</span>, <span class="at">yend=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb43-11"><a href="logistic-regression.html#cb43-11" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span>.<span class="dv">5</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">xend=</span>.<span class="dv">5</span>, <span class="at">yend=</span><span class="fl">1.25</span>,</span>
+<span id="cb43-12"><a href="logistic-regression.html#cb43-12" tabindex="-1"></a>                <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">ends=</span><span class="st">&quot;first&quot;</span>)) <span class="sc">+</span>      </span>
+<span id="cb43-13"><a href="logistic-regression.html#cb43-13" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span>.<span class="dv">5</span>, <span class="at">y=</span><span class="fl">1.3</span>, <span class="at">label=</span><span class="st">&quot;Baseline Model&quot;</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb43-14"><a href="logistic-regression.html#cb43-14" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>)) <span class="sc">+</span>   </span>
+<span id="cb43-15"><a href="logistic-regression.html#cb43-15" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span>.<span class="dv">2</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">xend=</span>.<span class="dv">2</span>, <span class="at">yend=</span><span class="fl">2.452366</span>, </span>
+<span id="cb43-16"><a href="logistic-regression.html#cb43-16" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">&quot;darkorange&quot;</span>, <span class="at">size=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb43-17"><a href="logistic-regression.html#cb43-17" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="fl">2.452366</span>, <span class="at">xend=</span>.<span class="dv">2</span>, <span class="at">yend=</span><span class="fl">2.452366</span>, </span>
+<span id="cb43-18"><a href="logistic-regression.html#cb43-18" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">&quot;darkorange&quot;</span>, <span class="at">size=</span>.<span class="dv">75</span>)</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3typlift-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="sensitivityspecificity-plots" class="section level3 hasAnchor" number="3.5.5">
+<h3><span class="header-section-number">3.5.5</span> Sensitivity/Specificity Plots<a href="logistic-regression.html#sensitivityspecificity-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Sensitivity, Specificity, and Accuracy depend on the cutoff value for predicting SUCCESS/ FAILURE
+<ul>
+<li>While 0.5 is the most common threshold, it might not be the best threshold for prediction</li>
+<li>Looking for:
+<ul>
+<li>High accuracy</li>
+<li>Relative balance between specificity and sensitivity</li>
+</ul></li>
+</ul></li>
+<li>Sensitivity/Specificity Plots can show the analyst how each changes with different cutoff values</li>
+</ul>
+<p><strong><em>Figure 3.9: Sample Sensitivity/Specificity Plot</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="logistic-regression.html#cb44-1" tabindex="-1"></a>pcc <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">01</span>)</span>
+<span id="cb44-2"><a href="logistic-regression.html#cb44-2" tabindex="-1"></a>sens <span class="ot">&lt;-</span> <span class="fl">1.0189-.01678</span><span class="sc">*</span>pcc<span class="fl">-.8349</span><span class="sc">*</span>pcc<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb44-3"><a href="logistic-regression.html#cb44-3" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fl">1.9211</span><span class="sc">*</span>pcc<span class="fl">-.8349</span><span class="sc">*</span>pcc<span class="sc">^</span><span class="dv">2</span><span class="fl">-.0778</span></span>
+<span id="cb44-4"><a href="logistic-regression.html#cb44-4" tabindex="-1"></a>acc <span class="ot">&lt;-</span> .<span class="dv">45</span><span class="fl">+1.6</span><span class="sc">*</span>pcc<span class="fl">-1.6</span><span class="sc">*</span>pcc<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb44-5"><a href="logistic-regression.html#cb44-5" tabindex="-1"></a><span class="fu">data.frame</span>(pcc, sens, spec, acc) <span class="sc">%&gt;%</span></span>
+<span id="cb44-6"><a href="logistic-regression.html#cb44-6" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">sens=</span><span class="fu">ifelse</span>(sens<span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,sens)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-7"><a href="logistic-regression.html#cb44-7" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">spec=</span><span class="fu">ifelse</span>(spec<span class="sc">&lt;</span><span class="dv">0</span>,<span class="dv">0</span>,spec)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-8"><a href="logistic-regression.html#cb44-8" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">spec=</span><span class="fu">ifelse</span>(spec<span class="sc">&gt;</span><span class="dv">1</span>,<span class="dv">1</span>,spec)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-9"><a href="logistic-regression.html#cb44-9" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>pcc)) <span class="sc">+</span> </span>
+<span id="cb44-10"><a href="logistic-regression.html#cb44-10" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>acc), <span class="at">color=</span><span class="st">&quot;red4&quot;</span>, <span class="at">size=</span><span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb44-11"><a href="logistic-regression.html#cb44-11" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>sens), <span class="at">color=</span><span class="st">&quot;forestgreen&quot;</span>, <span class="at">size=</span>.<span class="dv">7</span>) <span class="sc">+</span> </span>
+<span id="cb44-12"><a href="logistic-regression.html#cb44-12" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>spec), <span class="at">color=</span><span class="st">&quot;blue&quot;</span>, <span class="at">size=</span>.<span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb44-13"><a href="logistic-regression.html#cb44-13" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>sens), <span class="at">color=</span><span class="st">&quot;forestgreen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-14"><a href="logistic-regression.html#cb44-14" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>spec), <span class="at">color=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb44-15"><a href="logistic-regression.html#cb44-15" tabindex="-1"></a>   <span class="fu">scale_x_continuous</span>(<span class="st">&quot;Cutoff Value&quot;</span>, <span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb44-16"><a href="logistic-regression.html#cb44-16" tabindex="-1"></a>   <span class="fu">scale_y_continuous</span>(<span class="st">&quot;Measure Value&quot;</span>, <span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb44-17"><a href="logistic-regression.html#cb44-17" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span>.<span class="dv">3</span>, <span class="at">y=</span>.<span class="dv">423</span>, <span class="at">xend=</span>.<span class="dv">4</span>, <span class="at">yend=</span>.<span class="dv">3</span>, <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">ends=</span><span class="st">&quot;first&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb44-18"><a href="logistic-regression.html#cb44-18" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span>.<span class="dv">4</span>, <span class="at">y=</span>.<span class="dv">28</span>, <span class="at">label=</span><span class="st">&quot;Specificity&quot;</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span> </span>
+<span id="cb44-19"><a href="logistic-regression.html#cb44-19" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span>.<span class="dv">85</span>, <span class="at">y=</span><span class="fl">0.401</span>, <span class="at">xend=</span>.<span class="dv">75</span>, <span class="at">yend=</span>.<span class="dv">3</span>, <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">ends=</span><span class="st">&quot;first&quot;</span>))<span class="sc">+</span></span>
+<span id="cb44-20"><a href="logistic-regression.html#cb44-20" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span>.<span class="dv">75</span>, <span class="at">y=</span>.<span class="dv">28</span>, <span class="at">label=</span><span class="st">&quot;Sensitivity&quot;</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span> </span>
+<span id="cb44-21"><a href="logistic-regression.html#cb44-21" tabindex="-1"></a>   <span class="fu">geom_segment</span>(<span class="at">x=</span>.<span class="dv">2</span>, <span class="at">y=</span>.<span class="dv">706</span>, <span class="at">xend=</span>.<span class="dv">1</span>, <span class="at">yend=</span>.<span class="dv">82</span>, <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">ends=</span><span class="st">&quot;first&quot;</span>))<span class="sc">+</span></span>
+<span id="cb44-22"><a href="logistic-regression.html#cb44-22" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span>.<span class="dv">1</span>, <span class="at">y=</span>.<span class="dv">85</span>, <span class="at">label=</span><span class="st">&quot;Accuracy&quot;</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb44-23"><a href="logistic-regression.html#cb44-23" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>))</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3sensspecplot-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="logistic-regression-example" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Logistic Regression Example<a href="logistic-regression.html#logistic-regression-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="overview-4" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Overview<a href="logistic-regression.html#overview-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Purchase data for direct marketing campaign
+<ul>
+<li>400 observations of individual responses</li>
+<li>DV: Purchase made, <span class="math inline">\(buy\)</span> (factor: Yes, No)</li>
+<li>IVs:
+<ul>
+<li>Age, <span class="math inline">\(age\)</span></li>
+<li>Estimated Salary ($000s), <span class="math inline">\(salary\)</span></li>
+<li>Gender, <span class="math inline">\(gender\)</span> (factor: Male, Female)</li>
+</ul></li>
+</ul></li>
+<li>Predict likelihood of purchase</li>
+<li>Split sample into <em>Training</em> and <em>Holdout</em></li>
+</ul>
+</div>
+<div id="estimation-results" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Estimation Results<a href="logistic-regression.html#estimation-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Logit formulation results</li>
+</ul>
+<p><strong><em>Table 3.2: Logistic Regression Results (Logit Formulation)</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="logistic-regression.html#cb45-1" tabindex="-1"></a>   <span class="co"># Use &#39;splitsample&#39; to get training and test data</span></span>
+<span id="cb45-2"><a href="logistic-regression.html#cb45-2" tabindex="-1"></a>sp <span class="ot">&lt;-</span> <span class="fu">splitsample</span>(<span class="at">data=</span>directmktg, <span class="at">outcome=</span><span class="st">&quot;buy&quot;</span>)</span>
+<span id="cb45-3"><a href="logistic-regression.html#cb45-3" tabindex="-1"></a>train <span class="ot">&lt;-</span> sp<span class="sc">$</span>train</span>
+<span id="cb45-4"><a href="logistic-regression.html#cb45-4" tabindex="-1"></a>test <span class="ot">&lt;-</span> sp<span class="sc">$</span>test</span>
+<span id="cb45-5"><a href="logistic-regression.html#cb45-5" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="logistic-regression.html#cb45-6" tabindex="-1"></a>    <span class="co"># Estimate the model on the training data</span></span>
+<span id="cb45-7"><a href="logistic-regression.html#cb45-7" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(buy <span class="sc">~</span> age <span class="sc">+</span> salary <span class="sc">+</span> gender, train, <span class="at">family=</span><span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb45-8"><a href="logistic-regression.html#cb45-8" tabindex="-1"></a><span class="fu">summ</span>(model, <span class="at">model.info=</span><span class="cn">FALSE</span>, <span class="at">digits=</span><span class="dv">4</span>)</span></code></pre></div>
+</details>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+χ²(3)
+</td>
+<td style="text-align:right;">
+182.2574
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+p
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Pseudo-R² (Cragg-Uhler)
+</td>
+<td style="text-align:right;">
+0.6231
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Pseudo-R² (McFadden)
+</td>
+<td style="text-align:right;">
+0.4638
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+AIC
+</td>
+<td style="text-align:right;">
+218.6842
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+BIC
+</td>
+<td style="text-align:right;">
+233.5126
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Est.
+</th>
+<th style="text-align:right;">
+S.E.
+</th>
+<th style="text-align:right;">
+z val.
+</th>
+<th style="text-align:right;">
+p
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+-13.1661
+</td>
+<td style="text-align:right;">
+1.6217
+</td>
+<td style="text-align:right;">
+-8.1187
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+age
+</td>
+<td style="text-align:right;">
+0.2502
+</td>
+<td style="text-align:right;">
+0.0321
+</td>
+<td style="text-align:right;">
+7.7961
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+salary
+</td>
+<td style="text-align:right;">
+0.0406
+</td>
+<td style="text-align:right;">
+0.0067
+</td>
+<td style="text-align:right;">
+6.0265
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+genderFemale
+</td>
+<td style="text-align:right;">
+-0.4069
+</td>
+<td style="text-align:right;">
+0.3498
+</td>
+<td style="text-align:right;">
+-1.1631
+</td>
+<td style="text-align:right;">
+0.2448
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: MLE
+</td>
+</tr>
+</tfoot>
+</table>
+<ul>
+<li>Odds Ratio Coefficients</li>
+</ul>
+<p><strong><em>Table 3.3: Logistic Regression Odds Ratio Coefficients</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="logistic-regression.html#cb46-1" tabindex="-1"></a><span class="fu">summ</span>(model, <span class="at">model.info=</span><span class="cn">FALSE</span>, <span class="at">model.fit=</span><span class="cn">FALSE</span>, <span class="at">digits=</span><span class="dv">4</span>, <span class="at">exp=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+</details>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+exp(Est.)
+</th>
+<th style="text-align:right;">
+2.5%
+</th>
+<th style="text-align:right;">
+97.5%
+</th>
+<th style="text-align:right;">
+z val.
+</th>
+<th style="text-align:right;">
+p
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-8.1187
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+age
+</td>
+<td style="text-align:right;">
+1.2843
+</td>
+<td style="text-align:right;">
+1.2060
+</td>
+<td style="text-align:right;">
+1.3677
+</td>
+<td style="text-align:right;">
+7.7961
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+salary
+</td>
+<td style="text-align:right;">
+1.0415
+</td>
+<td style="text-align:right;">
+1.0278
+</td>
+<td style="text-align:right;">
+1.0553
+</td>
+<td style="text-align:right;">
+6.0265
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+genderFemale
+</td>
+<td style="text-align:right;">
+0.6657
+</td>
+<td style="text-align:right;">
+0.3354
+</td>
+<td style="text-align:right;">
+1.3215
+</td>
+<td style="text-align:right;">
+-1.1631
+</td>
+<td style="text-align:right;">
+0.2448
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: MLE
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="overall-model-fit" class="section level3 hasAnchor" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> Overall Model Fit<a href="logistic-regression.html#overall-model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Based on the likelihood ratio <span class="math inline">\(\chi^2\)</span> test with a <span class="math inline">\(p\text{-value}&lt;.0001\)</span>, the overall model is significant (see Table 3.2)</li>
+<li>McFadden’s Pseudo-<span class="math inline">\(R^2\)</span> of <span class="math inline">\(.464\)</span> means that the model explains about <span class="math inline">\(46\%\)</span> of the variation between buyers/non-buyers (see Table 3.2)</li>
+<li>Classification Matrix for the Training Sample shows:
+<ul>
+<li>High sensitivity (<span class="math inline">\(72.2\%\)</span>)</li>
+<li>High specificity (<span class="math inline">\(91.2\%\)</span>)</li>
+<li>High precision (<span class="math inline">\(82.1\%\)</span>)</li>
+<li>Correctly classified (<span class="math inline">\(84.4\%\)</span>) &gt; PCC (<span class="math inline">\(54.0\%\)</span>)</li>
+</ul></li>
+</ul>
+<p><strong><em>Table 3.4: Classification Matrix for Training Sample</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="logistic-regression.html#cb47-1" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: Saving as result for formating of online lecture notes</span></span>
+<span id="cb47-2"><a href="logistic-regression.html#cb47-2" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="logistic-regression.html#cb47-3" tabindex="-1"></a>cmout <span class="ot">&lt;-</span> <span class="fu">classify_logistic</span>(<span class="at">MOD=</span>model,          <span class="co"># Object with model results</span></span>
+<span id="cb47-4"><a href="logistic-regression.html#cb47-4" tabindex="-1"></a>                           <span class="at">DATA=</span>train,         <span class="co"># Model data frame</span></span>
+<span id="cb47-5"><a href="logistic-regression.html#cb47-5" tabindex="-1"></a>                           <span class="at">POSITIVE=</span><span class="st">&quot;Yes&quot;</span>,     <span class="co"># Factor level for &quot;True&quot;</span></span>
+<span id="cb47-6"><a href="logistic-regression.html#cb47-6" tabindex="-1"></a>                           <span class="at">DATA2=</span>test,         <span class="co"># Test/holdout data frame</span></span>
+<span id="cb47-7"><a href="logistic-regression.html#cb47-7" tabindex="-1"></a>                           <span class="at">LABEL1=</span><span class="st">&quot;Training Data&quot;</span>,</span>
+<span id="cb47-8"><a href="logistic-regression.html#cb47-8" tabindex="-1"></a>                           <span class="at">LABEL2=</span><span class="st">&quot;Test Data&quot;</span>,</span>
+<span id="cb47-9"><a href="logistic-regression.html#cb47-9" tabindex="-1"></a>                           <span class="at">ft=</span><span class="cn">TRUE</span>)</span>
+<span id="cb47-10"><a href="logistic-regression.html#cb47-10" tabindex="-1"></a>cmout<span class="sc">$</span>sample1<span class="sc">$</span>table</span></code></pre></div>
+</details>
+<div class="tabwid"><style>.cl-c958fd66{}.cl-c951a5de{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c9546f4e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c9549a32{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a3c{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a3d{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a3e{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a46{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a47{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a48{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a50{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a5a{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a5b{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a5c{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a5d{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a64{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a65{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a78{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a79{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a7a{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a82{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a83{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a84{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a8c{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a96{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a97{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549a98{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549aa0{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549aa1{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549aa2{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549aaa{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549ab4{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549ab5{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549abe{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549abf{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549ac8{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549ac9{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549aca{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c9549ad2{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-c958fd66'><thead><tr style="overflow-wrap:break-word;"><th  colspan="4"class="cl-c9549a32"><p class="cl-c9546f4e"><span class="cl-c951a5de">Classification Matrix - Training Data (Cutoff = 0.50)</span></p></th></tr><tr style="overflow-wrap:break-word;"><th  colspan="4"class="cl-c9549a46"><p class="cl-c9546f4e"><span class="cl-c951a5de">Accuracy = 0.844</span></p></th></tr><tr style="overflow-wrap:break-word;"><th  colspan="4"class="cl-c9549a5a"><p class="cl-c9546f4e"><span class="cl-c951a5de">PCC = 0.540</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-c9549a64"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></th><th  colspan="2"class="cl-c9549a65"><p class="cl-c9546f4e"><span class="cl-c951a5de">Reference</span></p></th><th class="cl-c9549a79"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-c9549a7a"><p class="cl-c9546f4e"><span class="cl-c951a5de">Predicted</span></p></th><th class="cl-c9549a82"><p class="cl-c9546f4e"><span class="cl-c951a5de">No</span></p></th><th class="cl-c9549a83"><p class="cl-c9546f4e"><span class="cl-c951a5de">Yes</span></p></th><th class="cl-c9549a84"><p class="cl-c9546f4e"><span class="cl-c951a5de">Total</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-c9549a8c"><p class="cl-c9546f4e"><span class="cl-c951a5de">No</span></p></td><td class="cl-c9549a96"><p class="cl-c9546f4e"><span class="cl-c951a5de">176</span></p></td><td class="cl-c9549a97"><p class="cl-c9546f4e"><span class="cl-c951a5de">30</span></p></td><td class="cl-c9549a98"><p class="cl-c9546f4e"><span class="cl-c951a5de">206</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c9549aa0"><p class="cl-c9546f4e"><span class="cl-c951a5de">Yes</span></p></td><td class="cl-c9549aa1"><p class="cl-c9546f4e"><span class="cl-c951a5de">17</span></p></td><td class="cl-c9549aa2"><p class="cl-c9546f4e"><span class="cl-c951a5de">78</span></p></td><td class="cl-c9549aaa"><p class="cl-c9546f4e"><span class="cl-c951a5de">95</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c9549a8c"><p class="cl-c9546f4e"><span class="cl-c951a5de">Total</span></p></td><td class="cl-c9549a96"><p class="cl-c9546f4e"><span class="cl-c951a5de">193</span></p></td><td class="cl-c9549a97"><p class="cl-c9546f4e"><span class="cl-c951a5de">108</span></p></td><td class="cl-c9549a98"><p class="cl-c9546f4e"><span class="cl-c951a5de">301</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c9549ab4"><p class="cl-c9546f4e"><span class="cl-c951a5de">Selected Statistics (Positive Class):</span></p></td><td class="cl-c9549ab5"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></td><td class="cl-c9549abe"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></td><td class="cl-c9549abf"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c9549ab4"><p class="cl-c9546f4e"><span class="cl-c951a5de">Sensitivity</span></p></td><td class="cl-c9549ab5"><p class="cl-c9546f4e"><span class="cl-c951a5de">0.722</span></p></td><td class="cl-c9549abe"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></td><td class="cl-c9549abf"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c9549ab4"><p class="cl-c9546f4e"><span class="cl-c951a5de">Specificity</span></p></td><td class="cl-c9549ab5"><p class="cl-c9546f4e"><span class="cl-c951a5de">0.912</span></p></td><td class="cl-c9549abe"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></td><td class="cl-c9549abf"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c9549ac8"><p class="cl-c9546f4e"><span class="cl-c951a5de">Precision</span></p></td><td class="cl-c9549ac9"><p class="cl-c9546f4e"><span class="cl-c951a5de">0.821</span></p></td><td class="cl-c9549aca"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></td><td class="cl-c9549ad2"><p class="cl-c9546f4e"><span class="cl-c951a5de"></span></p></td></tr></tbody></table></div>
+<ul>
+<li>Classification Matrix for the Test/Holdout Sample shows:
+<ul>
+<li>High sensitivity (<span class="math inline">\(77.1\%\)</span>)</li>
+<li>High specificity (<span class="math inline">\(90.6\%\)</span>)</li>
+<li>High precision (<span class="math inline">\(81.8\%\)</span>)</li>
+<li>Correctly classified (<span class="math inline">\(85.9\%\)</span>) &gt; PCC (<span class="math inline">\(54.3\%\)</span>)</li>
+</ul></li>
+</ul>
+<p><strong><em>Table 3.5: Classification Matrix for Test Sample</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="logistic-regression.html#cb48-1" tabindex="-1"></a>cmout<span class="sc">$</span>sample2<span class="sc">$</span>table</span></code></pre></div>
+</details>
+<div class="tabwid"><style>.cl-c9719254{}.cl-c9668594{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c96e0b84{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c96e2998{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29a2{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29a3{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29a4{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29ac{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29ad{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29b6{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29b7{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29b8{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29c0{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29ca{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29cb{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29d4{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29d5{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29de{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29df{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29e0{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29e8{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29e9{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29ea{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29f2{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29f3{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29fc{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e29fd{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a06{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a07{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a08{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a09{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a10{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a11{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a1a{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a1b{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a1c{width:2.679in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a1d{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a24{width:0.548in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c96e2a25{width:0.625in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-c9719254'><thead><tr style="overflow-wrap:break-word;"><th  colspan="4"class="cl-c96e2998"><p class="cl-c96e0b84"><span class="cl-c9668594">Classification Matrix - Test Data (Cutoff = 0.50)</span></p></th></tr><tr style="overflow-wrap:break-word;"><th  colspan="4"class="cl-c96e29ac"><p class="cl-c96e0b84"><span class="cl-c9668594">Accuracy = 0.859</span></p></th></tr><tr style="overflow-wrap:break-word;"><th  colspan="4"class="cl-c96e29b8"><p class="cl-c96e0b84"><span class="cl-c9668594">PCC = 0.543</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-c96e29d4"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></th><th  colspan="2"class="cl-c96e29d5"><p class="cl-c96e0b84"><span class="cl-c9668594">Reference</span></p></th><th class="cl-c96e29df"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-c96e29e0"><p class="cl-c96e0b84"><span class="cl-c9668594">Predicted</span></p></th><th class="cl-c96e29e8"><p class="cl-c96e0b84"><span class="cl-c9668594">No</span></p></th><th class="cl-c96e29e9"><p class="cl-c96e0b84"><span class="cl-c9668594">Yes</span></p></th><th class="cl-c96e29ea"><p class="cl-c96e0b84"><span class="cl-c9668594">Total</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-c96e29f2"><p class="cl-c96e0b84"><span class="cl-c9668594">No</span></p></td><td class="cl-c96e29f3"><p class="cl-c96e0b84"><span class="cl-c9668594">58</span></p></td><td class="cl-c96e29fc"><p class="cl-c96e0b84"><span class="cl-c9668594">8</span></p></td><td class="cl-c96e29fd"><p class="cl-c96e0b84"><span class="cl-c9668594">66</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c96e2a06"><p class="cl-c96e0b84"><span class="cl-c9668594">Yes</span></p></td><td class="cl-c96e2a07"><p class="cl-c96e0b84"><span class="cl-c9668594">6</span></p></td><td class="cl-c96e2a08"><p class="cl-c96e0b84"><span class="cl-c9668594">27</span></p></td><td class="cl-c96e2a09"><p class="cl-c96e0b84"><span class="cl-c9668594">33</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c96e2a06"><p class="cl-c96e0b84"><span class="cl-c9668594">Total</span></p></td><td class="cl-c96e2a07"><p class="cl-c96e0b84"><span class="cl-c9668594">64</span></p></td><td class="cl-c96e2a08"><p class="cl-c96e0b84"><span class="cl-c9668594">35</span></p></td><td class="cl-c96e2a09"><p class="cl-c96e0b84"><span class="cl-c9668594">99</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c96e2a10"><p class="cl-c96e0b84"><span class="cl-c9668594">Selected Statistics (Positive Class):</span></p></td><td class="cl-c96e2a11"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></td><td class="cl-c96e2a1a"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></td><td class="cl-c96e2a1b"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c96e2a10"><p class="cl-c96e0b84"><span class="cl-c9668594">Sensitivity</span></p></td><td class="cl-c96e2a11"><p class="cl-c96e0b84"><span class="cl-c9668594">0.771</span></p></td><td class="cl-c96e2a1a"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></td><td class="cl-c96e2a1b"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c96e2a10"><p class="cl-c96e0b84"><span class="cl-c9668594">Specificity</span></p></td><td class="cl-c96e2a11"><p class="cl-c96e0b84"><span class="cl-c9668594">0.906</span></p></td><td class="cl-c96e2a1a"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></td><td class="cl-c96e2a1b"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c96e2a1c"><p class="cl-c96e0b84"><span class="cl-c9668594">Precision</span></p></td><td class="cl-c96e2a1d"><p class="cl-c96e0b84"><span class="cl-c9668594">0.818</span></p></td><td class="cl-c96e2a24"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></td><td class="cl-c96e2a25"><p class="cl-c96e0b84"><span class="cl-c9668594"></span></p></td></tr></tbody></table></div>
+<ul>
+<li>ROC Curve for Training Sample
+<ul>
+<li>Area <span class="math inline">\(&gt;.90\)</span> suggests an outstanding model fit</li>
+</ul></li>
+</ul>
+<p><strong><em>Figure 3.10: ROC Curve for Training Sample</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="logistic-regression.html#cb49-1" tabindex="-1"></a>rocout <span class="ot">&lt;-</span> <span class="fu">roc_logistic</span>(<span class="at">MOD=</span>model,          <span class="co"># Object with model results</span></span>
+<span id="cb49-2"><a href="logistic-regression.html#cb49-2" tabindex="-1"></a>                       <span class="at">DATA=</span>train,         <span class="co"># Model data frame</span></span>
+<span id="cb49-3"><a href="logistic-regression.html#cb49-3" tabindex="-1"></a>                       <span class="at">DATA2=</span>test,         <span class="co"># Test/holdout data frame</span></span>
+<span id="cb49-4"><a href="logistic-regression.html#cb49-4" tabindex="-1"></a>                       <span class="at">LABEL1=</span><span class="st">&quot;Training Data&quot;</span>,</span>
+<span id="cb49-5"><a href="logistic-regression.html#cb49-5" tabindex="-1"></a>                       <span class="at">LABEL2=</span><span class="st">&quot;Test Data&quot;</span>)</span>
+<span id="cb49-6"><a href="logistic-regression.html#cb49-6" tabindex="-1"></a>rocout<span class="sc">$</span>sample1</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3roctrain-1.png" alt="" width="672" /></p>
+<ul>
+<li>ROC Curve for Holdout Sample
+<ul>
+<li>Area <span class="math inline">\(&gt;.90\)</span> suggests an outstanding model fit</li>
+</ul></li>
+</ul>
+<p><strong><em>Figure 3.11: ROC Curve for Test Sample</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="logistic-regression.html#cb50-1" tabindex="-1"></a>rocout<span class="sc">$</span>sample2</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3roctest-1.png" alt="" width="672" /></p>
+</div>
+<div id="interpreting-coefficients-1" class="section level3 hasAnchor" number="3.6.4">
+<h3><span class="header-section-number">3.6.4</span> Interpreting Coefficients<a href="logistic-regression.html#interpreting-coefficients-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Refer back to Table 3.3</li>
+<li><span class="math inline">\(age\)</span> is positive (<span class="math inline">\(OR&gt;1\)</span>) and significant (<span class="math inline">\(p&lt;.001\)</span>)
+<ul>
+<li><span class="math inline">\(1\)</span> year increase in <span class="math inline">\(age\)</span> increases odds of buying by a factor of <span class="math inline">\(1.28\)</span> (or odds of buying increase by <span class="math inline">\(25\%\)</span>)</li>
+</ul></li>
+<li><span class="math inline">\(salary\)</span> is positive (<span class="math inline">\(OR&gt;1\)</span>) and significant (<span class="math inline">\(p&lt;.001\)</span>)
+<ul>
+<li><span class="math inline">\(\$1000\)</span> increase in <span class="math inline">\(salary\)</span> increases odds of buying by a factor of <span class="math inline">\(1.04\)</span> (or odds of buying increase by <span class="math inline">\(4\%\)</span>)</li>
+</ul></li>
+<li><span class="math inline">\(gender\)</span> is negative (<span class="math inline">\(OR&lt;1\)</span>), but not significant (<span class="math inline">\(p=.245\)</span>)
+<ul>
+<li>Had it been significant…
+Being female decreases odds of buying by a factor of <span class="math inline">\(.67\)</span> (or odds of buying decrease by <span class="math inline">\(33\%\)</span>)</li>
+</ul></li>
+<li>Can visually examine how <span class="math inline">\(\Pr(buy)\)</span> changes with IVs</li>
+</ul>
+<p><strong><em>Figure 3.12: Margin Plot for Age, Salary, and Gender</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="logistic-regression.html#cb51-1" tabindex="-1"></a>    <span class="co"># Use &#39;easy_mp&#39; and save plots as objects </span></span>
+<span id="cb51-2"><a href="logistic-regression.html#cb51-2" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">easy_mp</span>(model, <span class="at">focal=</span><span class="st">&quot;age&quot;</span>)<span class="sc">$</span>plot <span class="sc">+</span></span>
+<span id="cb51-3"><a href="logistic-regression.html#cb51-3" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;Pr(Buy)&quot;</span>, <span class="at">x=</span><span class="st">&quot;Age&quot;</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb51-4"><a href="logistic-regression.html#cb51-4" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">easy_mp</span>(model, <span class="at">focal=</span><span class="st">&quot;salary&quot;</span>)<span class="sc">$</span>plot <span class="sc">+</span></span>
+<span id="cb51-5"><a href="logistic-regression.html#cb51-5" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;Pr(Buy)&quot;</span>, <span class="at">x=</span><span class="st">&quot;Salary&quot;</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb51-6"><a href="logistic-regression.html#cb51-6" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">easy_mp</span>(model, <span class="at">focal=</span><span class="st">&quot;gender&quot;</span>)<span class="sc">$</span>plot <span class="sc">+</span></span>
+<span id="cb51-7"><a href="logistic-regression.html#cb51-7" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;Pr(Buy)&quot;</span>, <span class="at">x=</span><span class="st">&quot;Gender&quot;</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb51-8"><a href="logistic-regression.html#cb51-8" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="logistic-regression.html#cb51-9" tabindex="-1"></a>    <span class="co"># Arrange three plots in a grid using package &#39;cowplot&#39;</span></span>
+<span id="cb51-10"><a href="logistic-regression.html#cb51-10" tabindex="-1"></a><span class="fu">plot_grid</span>(p1,p2,p3, <span class="at">nrow=</span><span class="dv">2</span>)</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3mpage01-1.png" alt="" width="672" /></p>
+</div>
+<div id="gain-1" class="section level3 hasAnchor" number="3.6.5">
+<h3><span class="header-section-number">3.6.5</span> Gain<a href="logistic-regression.html#gain-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Can examine gain for both the training and holdout samples…</li>
+<li>But using holdout is more informative</li>
+<li>Contacting the top <span class="math inline">\(25\%\)</span> of predicted buyers yields nearly <span class="math inline">\(60\%\)</span> of actual buyers</li>
+</ul>
+<p><strong><em>Figure 3.13: Gain Chart for Training and Test/Holdout Samples</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="logistic-regression.html#cb52-1" tabindex="-1"></a>   <span class="co"># Use `gainlift_logistic` and save results to oject</span></span>
+<span id="cb52-2"><a href="logistic-regression.html#cb52-2" tabindex="-1"></a>glresults <span class="ot">&lt;-</span> <span class="fu">gainlift_logistic</span>(model, train, test, <span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb52-3"><a href="logistic-regression.html#cb52-3" tabindex="-1"></a>   <span class="co"># Request gain plot</span></span>
+<span id="cb52-4"><a href="logistic-regression.html#cb52-4" tabindex="-1"></a>glresults<span class="sc">$</span>gainplot <span class="sc">+</span></span>
+<span id="cb52-5"><a href="logistic-regression.html#cb52-5" tabindex="-1"></a>      <span class="co"># Code below for presentation purposes only (NOT USUALLY NECESSARY)</span></span>
+<span id="cb52-6"><a href="logistic-regression.html#cb52-6" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="fl">0.25</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">xend=</span><span class="fl">0.25</span>, <span class="at">yend=</span><span class="fl">0.6</span>, </span>
+<span id="cb52-7"><a href="logistic-regression.html#cb52-7" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-8"><a href="logistic-regression.html#cb52-8" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="fl">0.05</span>, <span class="at">y=</span><span class="fl">0.6</span>, <span class="at">xend=</span><span class="fl">0.25</span>, <span class="at">yend=</span><span class="fl">0.6</span>, </span>
+<span id="cb52-9"><a href="logistic-regression.html#cb52-9" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-10"><a href="logistic-regression.html#cb52-10" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="fl">0.5</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">xend=</span><span class="fl">0.5</span>, <span class="at">yend=</span><span class="fl">0.971</span>, </span>
+<span id="cb52-11"><a href="logistic-regression.html#cb52-11" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;brown&quot;</span>) <span class="sc">+</span></span>
+<span id="cb52-12"><a href="logistic-regression.html#cb52-12" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="fl">0.05</span>, <span class="at">y=</span><span class="fl">0.974</span>, <span class="at">xend=</span><span class="fl">0.5</span>, <span class="at">yend=</span><span class="fl">0.971</span>, </span>
+<span id="cb52-13"><a href="logistic-regression.html#cb52-13" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;brown&quot;</span>)</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3gainplot-1.png" alt="" width="672" /></p>
+</div>
+<div id="lift-1" class="section level3 hasAnchor" number="3.6.6">
+<h3><span class="header-section-number">3.6.6</span> Lift<a href="logistic-regression.html#lift-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Can examine gain for both the training and holdout samples…</li>
+<li>But using holdout is more informative</li>
+<li>Contacting the top <span class="math inline">\(25\%\)</span> of predicted buyers provides lift of nearly 2.5</li>
+</ul>
+<p><strong><em>Figure 3.14: Lift Chart for Training and Test/Holdout Samples</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="logistic-regression.html#cb53-1" tabindex="-1"></a>   <span class="co"># Request lift plot</span></span>
+<span id="cb53-2"><a href="logistic-regression.html#cb53-2" tabindex="-1"></a>glresults<span class="sc">$</span>liftplot <span class="sc">+</span></span>
+<span id="cb53-3"><a href="logistic-regression.html#cb53-3" tabindex="-1"></a>      <span class="co"># Code below for presentation purposes only (NOT USUALLY NECESSARY)</span></span>
+<span id="cb53-4"><a href="logistic-regression.html#cb53-4" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="fl">0.25</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">xend=</span><span class="fl">0.25</span>, <span class="at">yend=</span><span class="fl">2.48</span>, </span>
+<span id="cb53-5"><a href="logistic-regression.html#cb53-5" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-6"><a href="logistic-regression.html#cb53-6" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="fl">0.05</span>, <span class="at">y=</span><span class="fl">2.48</span>, <span class="at">xend=</span><span class="fl">0.25</span>, <span class="at">yend=</span><span class="fl">2.48</span>, </span>
+<span id="cb53-7"><a href="logistic-regression.html#cb53-7" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;orange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-8"><a href="logistic-regression.html#cb53-8" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="fl">0.5</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">xend=</span><span class="fl">0.5</span>, <span class="at">yend=</span><span class="fl">1.96</span>, </span>
+<span id="cb53-9"><a href="logistic-regression.html#cb53-9" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;brown&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-10"><a href="logistic-regression.html#cb53-10" tabindex="-1"></a>   <span class="fu">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="at">x=</span><span class="fl">0.05</span>, <span class="at">y=</span><span class="fl">1.96</span>, <span class="at">xend=</span><span class="fl">0.5</span>, <span class="at">yend=</span><span class="fl">1.96</span>, </span>
+<span id="cb53-11"><a href="logistic-regression.html#cb53-11" tabindex="-1"></a>                <span class="at">linetype=</span><span class="dv">2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color=</span><span class="st">&quot;brown&quot;</span>)</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3liftplot-1.png" alt="" width="672" /></p>
+</div>
+<div id="sensitivityspecificity-plots-1" class="section level3 hasAnchor" number="3.6.7">
+<h3><span class="header-section-number">3.6.7</span> Sensitivity/Specificity Plots<a href="logistic-regression.html#sensitivityspecificity-plots-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Examine to see if different thresholds are warranted
+<ul>
+<li>Looking at the plots for both the training sample (see Figure 3.15) and the test/holdout sample (see Figure 3.16), it might be worthwhile to try a cutoff threshold between 0.35 and 0.40
+<ul>
+<li>Doing so will balance specificity and sensitivity without hurting accuracy</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong><em>Figure 3.15: Sensitivity/Specificity Plot for Training Sample</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="logistic-regression.html#cb54-1" tabindex="-1"></a>    <span class="co"># Use&#39;cutoff_logisit&#39; function on training sample</span></span>
+<span id="cb54-2"><a href="logistic-regression.html#cb54-2" tabindex="-1"></a>sensspec <span class="ot">&lt;-</span> <span class="fu">cutoff_logistic</span>(<span class="at">MOD=</span>model, <span class="at">DATA=</span>train, <span class="at">POSITIVE=</span><span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb54-3"><a href="logistic-regression.html#cb54-3" tabindex="-1"></a>                <span class="at">LABEL1=</span><span class="st">&quot;Training Sample&quot;</span>, <span class="at">DATA2=</span>test, <span class="at">LABEL2=</span><span class="st">&quot;Test Sample&quot;</span>,</span>
+<span id="cb54-4"><a href="logistic-regression.html#cb54-4" tabindex="-1"></a>                <span class="at">auto_print=</span><span class="cn">FALSE</span>)  <span class="co"># Only needed for online lecture materials</span></span>
+<span id="cb54-5"><a href="logistic-regression.html#cb54-5" tabindex="-1"></a>sensspec<span class="sc">$</span>sample1</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3sensspec01-1.png" alt="" width="672" /></p>
+<p><strong><em>Figure 3.16: Sensitivity/Specificity Plot for Test/Holdout Sample</em></strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="logistic-regression.html#cb55-1" tabindex="-1"></a>sensspec<span class="sc">$</span>sample2</span></code></pre></div>
+</details>
+<p><img src="MKT4320_Lecture_Notes_files/figure-html/t3sensspec02-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="suggested-readings-2" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Suggested Readings<a href="logistic-regression.html#suggested-readings-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><em>R for Marketing Research and Analytics. 2nd Edition</em> (2019). Chapman, Chris; McDonnel Feit, Elea
+<ul>
+<li>BGSU Library Link:<br><a href="https://librarysearch.bgsu.edu/permalink/01OHIOLINK_BGSU/i5ro6c/alma9926179903408506" target="_blank" rel="noopener noreferrer">https://librarysearch.bgsu.edu/permalink/01OHIOLINK_BGSU/i5ro6c/alma9926179903408506</a></li>
+<li>Chapter 9.2: Linear Models for Binary Outcomes: Logistic Regression</li>
+</ul></li>
+<li><em>OpenIntro Statistics. 4th Edition</em> (2019). Diez, David; Cetinkaya-Rundel, Mine; Barr, Christopher D.
+<ul>
+<li>Available at OpenIntro.org:<br><a href="https://www.openintro.org/book/os/" target="_blank" rel="noopener noreferrer">https://www.openintro.org/book/os/</a></li>
+<li>Chapter 9: Multiple and logistic regression</li>
+</ul></li>
+<li><em>Multivariate Data Analysis</em>. Hair, Joseph F.; Black, William C.; Babin, Barry J.; Anderson, Rolph E.
+<ul>
+<li>7th Edition: Search for “multivariate data analysis 7th edition hair”
+Chapter 6: Logistic Regression with a Binary Dependent Variable</li>
+<li>5th Edition: Course reserves
+<ul>
+<li>Chapter 5: Multiple Discriminant Analysis and Logistic Regression (pp. 276-281; 314-321)</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="linear-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="targeting-and-retaining-customers.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": null,
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  },
+  "number_sections": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

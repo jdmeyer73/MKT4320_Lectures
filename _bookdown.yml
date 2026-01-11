@@ -1,0 +1,17 @@
+book_filename: "MKT4320_Lecture_Notes"
+delete_merged_file: true
+output_dir: "docs"
+language:
+  ui:
+    chapter_name: "Topic "
+rmd_files:
+  - "index.Rmd"
+  - "01-topic-01.Rmd"
+  - "02-topic-02.Rmd"
+  - "03-topic-03.Rmd"
+  - "04-topic-04.Rmd"
+  - "05-topic-05.Rmd"
+  - "06-topic-06.Rmd"
+  - "07-topic-07.Rmd"
+  - "08-topic-08.Rmd"
+  - "09-topic-09.Rmd"
