@@ -3,5 +3,14 @@
 .RData
 _book/
 _bookdown_files/
-*_cache/
+# Ignore knitr output folders in the source directory
 *_files/
+*_cache/
+
+# But KEEP rendered output inside docs for GitHub Pages
+!docs/*_files/
+!docs/*_files/**
+
+# Also keep any site libs created under docs
+!docs/libs/
+!docs/libs/**

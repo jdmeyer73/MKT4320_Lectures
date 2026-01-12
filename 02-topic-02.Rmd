@@ -230,9 +230,8 @@ plot_grid(p1,p2,p3,p4)
 
 
 ***Table 2.2: Regression Results (Concise)***
-``` {r t2results1, cache=TRUE, comment=NA}
+``` {r t2results1, results="asis"}
 # Run linear model and save as 'results'
-getOption("summ-normal-print", TRUE)
 results <- lm(sales ~ ad_tv + ad_radio + ad_paper, data = advtsales)
 summ(results, digits=4, model.info=FALSE)
 ```

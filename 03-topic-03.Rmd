@@ -481,7 +481,7 @@ summ(model, model.info=FALSE, model.fit=FALSE, digits=4, exp=TRUE)
     
 ***Table 3.4: Classification Matrix for Training Sample***
 ```{r t3cmtrain, cache=TRUE}
-# NOTE: Saving as result for formating of online lecture notes
+# NOTE: Saving as result for formatting of online lecture notes
 
 cmout <- classify_logistic(MOD=model,          # Object with model results
                            DATA=train,         # Model data frame
