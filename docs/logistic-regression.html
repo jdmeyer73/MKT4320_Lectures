@@ -704,11 +704,11 @@ age
 <span class="math inline">\(odds=\frac{.5}{1-.5}=1\)</span></li>
 </ul></li>
 <li>Substituting logistic function for <span class="math inline">\(f(z)\)</span> into <span class="math inline">\(odds\)</span> <span class="math inline">\(\Rightarrow\)</span><br>
-<span class="math inline">\(odds=e^u=e^{\alpha+betax}\)</span> <span class="math inline">\(\Leftarrow\)</span> We want to run a model based on this
+<span class="math inline">\(odds=e^u=e^{\alpha+\beta x}\)</span> <span class="math inline">\(\Leftarrow\)</span> We want to run a model based on this
 <ul>
-<li><span class="math inline">\(\frac{f(z)}{1-f(z)}=\frac{\frac{e^u}{1+e^u}}{1-\frac{e^u}{1+e^u}}=\frac{\frac{e^u}{1+e^u}}{\frac{1+e^u}{1+e^u}-\frac{e^u}{1+e^u}}=\frac{\frac{e^u}{1+e^u}}{\frac{1}{1+e^u}}=e^u\)</span></li>
+<li>The math: <span class="math inline">\(\frac{f(z)}{1-f(z)}=\frac{\frac{e^u}{1+e^u}}{1-\frac{e^u}{1+e^u}}=\frac{\frac{e^u}{1+e^u}}{\frac{1+e^u}{1+e^u}-\frac{e^u}{1+e^u}}=\frac{\frac{e^u}{1+e^u}}{\frac{1}{1+e^u}}=e^u\)</span></li>
 </ul></li>
-<li>Transform exponential function into linear <span class="math inline">\(\Rightarrow\)</span><br>
+<li>Transform exponential function into linear:<br>
 <span class="math inline">\(Logit\Rightarrow\ln(odds)=\alpha+\beta x\)</span></li>
 <li>The Good: We can estimate our linear model!</li>
 <li>The Bad: Our dependent variable is <span class="math inline">\(ln(odds)\)</span></li>
