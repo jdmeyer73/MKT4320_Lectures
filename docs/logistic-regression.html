@@ -690,28 +690,52 @@ age
 </details>
 <p><img src="MKT4320_Lecture_Notes_files/figure-html/t3logitcurve-1.png" alt="" width="672" /></p>
 <ul>
-<li>Probability of event success vs. failure <span class="math inline">\(=\frac{f(z)}{1-f(z)}=\)</span> Odds Ratio (<span class="math inline">\(OR\)</span>)
+<li>Probability of event success vs. failure <span class="math inline">\(=\frac{f(z)}{1-f(z)}= odds\)</span>
 <ul>
 <li>Suppose probability of success <span class="math inline">\(=.01\)</span>, then:<br>
-<span class="math inline">\(OR=\frac{.01}{1-.01}=.0101\)</span>
-<ul>
+<span class="math inline">\(odds=\frac{.01}{1-.01}=.0101\)</span></li>
 <li>Suppose probability of success <span class="math inline">\(=.001\)</span>, then:<br>
-<span class="math inline">\(OR=\frac{.001}{1-.001}=.0010\)</span></li>
+<span class="math inline">\(odds=\frac{.001}{1-.001}=.0010\)</span></li>
 <li>Suppose probability of success <span class="math inline">\(=.99\)</span>, then:<br>
-<span class="math inline">\(OR=\frac{.99}{1-.99}=99\)</span></li>
+<span class="math inline">\(odds=\frac{.99}{1-.99}=99\)</span></li>
 <li>Suppose probability of success <span class="math inline">\(=.999\)</span>, then:<br>
-<span class="math inline">\(OR=\frac{.999}{1-.999}=999\)</span></li>
+<span class="math inline">\(odds=\frac{.999}{1-.999}=999\)</span></li>
 <li>Suppose probability of success <span class="math inline">\(=.5\)</span>, then:<br>
-<span class="math inline">\(OR=\frac{.5}{1-.5}=1\)</span></li>
+<span class="math inline">\(odds=\frac{.5}{1-.5}=1\)</span></li>
 </ul></li>
-</ul></li>
-<li>Substituting logistic function for <span class="math inline">\(f(z)\)</span> into Odds Ratio <span class="math inline">\(\Rightarrow\)</span><br>
-<span class="math inline">\(OR=e^u=e^{\alpha+betax}\)</span>
+<li>Substituting logistic function for <span class="math inline">\(f(z)\)</span> into <span class="math inline">\(odds\)</span> <span class="math inline">\(\Rightarrow\)</span><br>
+<span class="math inline">\(odds=e^u=e^{\alpha+betax}\)</span> <span class="math inline">\(\Leftarrow\)</span> We want to run a model based on this
 <ul>
 <li><span class="math inline">\(\frac{f(z)}{1-f(z)}=\frac{\frac{e^u}{1+e^u}}{1-\frac{e^u}{1+e^u}}=\frac{\frac{e^u}{1+e^u}}{\frac{1+e^u}{1+e^u}-\frac{e^u}{1+e^u}}=\frac{\frac{e^u}{1+e^u}}{\frac{1}{1+e^u}}=e^u\)</span></li>
 </ul></li>
-<li>Can transform exponential function into linear <span class="math inline">\(\Rightarrow\)</span><br>
-<span class="math inline">\(Logit=\ln(OR)=\alpha+\beta x\)</span></li>
+<li>Transform exponential function into linear <span class="math inline">\(\Rightarrow\)</span><br>
+<span class="math inline">\(Logit\Rightarrow\ln(odds)=\alpha+\beta x\)</span></li>
+<li>The Good: We can estimate our linear model!</li>
+<li>The Bad: Our dependent variable is <span class="math inline">\(ln(odds)\)</span></li>
+<li>The Ugly: A one-unit change in <span class="math inline">\(x\)</span> on the <span class="math inline">\(ln(odds)\)</span> is very hard to interpret</li>
+<li>Solution: Use odds ratios for interpretation
+<ul>
+<li>Odds ratio compares odds at two different values of the predictors</li>
+<li><span class="math inline">\(OR=\frac{odds\text{ }at\text{ }u_1}{odds\text{ }at\text{ } u_0}=\frac{e^{u_1}}{e^{u_0}}=e^{u_1-u_0}\)</span>
+<ul>
+<li>Tells us how odds change when a predictor changes</li>
+</ul></li>
+</ul></li>
+<li>Example:
+<ul>
+<li>Assume a simple logistic regression: <span class="math inline">\(odds=e^{\alpha+\beta x}\)</span></li>
+<li>Assume further: <span class="math inline">\(\alpha=0\)</span>, thus <span class="math inline">\(odds=e^{\beta x}\)</span></li>
+<li>How do odds change for a one-unit change in <span class="math inline">\(x\)</span>?
+<ul>
+<li>When <span class="math inline">\(x=1\)</span>, <span class="math inline">\(odds=e^{\beta \times 1}=e^\beta\)</span></li>
+<li>When <span class="math inline">\(x=2\)</span>, <span class="math inline">\(odds=e^{\beta \times 2}=e^{2\beta}\)</span></li>
+<li>So, <span class="math inline">\(OR=\frac{e^{2\beta}}{e^\beta}=e^{2\beta -\beta}=e^\beta\)</span>
+<ul>
+<li>Tells us how odds change for a one-unit increase in <span class="math inline">\(x\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Bottom line: Much easier to interpret vs. how <span class="math inline">\(ln(odds)\)</span> change for a one-unit increase in <span class="math inline">\(x\)</span></li>
 </ul>
 </div>
 <div id="conducting-logistic-regression" class="section level2 hasAnchor" number="3.5">
